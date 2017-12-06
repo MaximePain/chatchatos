@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>CHAT</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    
+    <style>
+        #container{
+            border: 2px black solid;
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+    </style>
+    
+    <body>
+        
+        <h1>CHAT TEST</h1>
+        <p>text:</p><br/>
+            <div id="container">
+        </div>
+    
+        <input id="textIN" name="textIN" type="text" placeholder="MESSAGE">
+        <input id="send" type="submit" value="SEND" onclick="send()" >
+        <br/><br/>
+        <input name="PSEUDO" type="text" placeholder="PSEUDO">
+        
+        
+        
+        
+        <script>
+            var ws = new WebSocket("ws://10.3.244.211:25567");
+            
+            var addMsg = function(pseudo, msg){
+                var para = document.createElement("p");
+                para.textContent = String(pseudo) + ": " + String(msg);
+                document.getElementById("container").appendChild(para);
+                document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
+            }
+            
+            var send = function(){
+                var msg = {
+                    msg: document.getElementsByName("textIN")[0].value,
+                    pseudo: document.getElementsByName("PSEUDO")[0].value
+                }
+                ws.send(JSON.stringify(msg));
+                addMsg(document.getElementsByName("PSEUDO")[0].value, document.getElementsByName("textIN")[0].value);
+                document.getElementsByName("textIN")[0].value = "";
+            }
+            
+            ws.onmessage = function(RAW){
+                var obj = JSON.parse(RAW.data);
+                addMsg(obj.pseudo, obj.msg);
+            }
+            
+            $("#textIN").keyup(function(event) {
+    if (event.keyCode === 13) {
+        send();
+    }
+});
+        </script>
+        
+    </body>
+    
+</html>
