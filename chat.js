@@ -28,6 +28,7 @@ wss.on('connection', function connection(ws){
     ws.send(JSON.stringify(ok));
     
     console.log("connexion!");
+    
 	ws.on('message', function(msg){
         var data = JSON.parse(msg);
         if(data.pseudo == "SERVEUR")
@@ -54,7 +55,8 @@ wss.on('connection', function connection(ws){
                     if(ws.first == true)
                         {
                             ws.first = false;
-                            msg.msg = "Bienvenue à " + data.pseudo + " qui vient de se connecter!";
+                            msgConnexion.msg = "Bienvenue à " + data.pseudo + " qui vient de se connecter!";
+                            msg = msgConnexion;
                         }
                     client.send(msg);
                 }
