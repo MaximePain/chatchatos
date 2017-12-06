@@ -56,7 +56,7 @@ wss.on('connection', function connection(ws){
                             client.send(JSON.stringify(msgConnexion));
                         }
                     else
-                        client.send(JSON.stringify(msg));
+                        client.send(JSON.stringify(data));
                 }
             });
 	});
