@@ -21,7 +21,8 @@ app.get('/', function(req, res){
 
 wss.on('connection', function connection(ws){
     var ok = {
-        msg: 'OK'
+        msg: 'OK',
+        type: 'ok'
     }
     ws.first = false;
     ws.send(JSON.stringify(ok));
