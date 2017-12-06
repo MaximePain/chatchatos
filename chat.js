@@ -23,7 +23,7 @@ wss.on('connection', function connection(ws){
     var ok = {
         msg: 'OK'
     }
-    ws.send(JSON.parse(ok));
+    ws.send(JSON.stringify(ok));
     
 	ws.on('message', function(msg){
         var data = JSON.parse(msg);
