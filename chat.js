@@ -53,10 +53,10 @@ wss.on('connection', function connection(ws){
                     if(data.connect == 'first')
                         {
                             msgConnexion.msg = "Bienvenue à " + data.pseudo + " qui vient de se connecter!";
-                            client.send(msgConnexion);
+                            client.send(JSON.stringify(msgConnexion));
                         }
                     else
-                        client.send(msg);
+                        client.send(JSON.stringify(msg));
                 }
             });
 	});
