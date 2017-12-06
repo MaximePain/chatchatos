@@ -31,7 +31,8 @@ wss.on('connection', function connection(ws){
         {
             var msgConnexion = {
                 msg: "Bienvenue sur le Chat!",
-                pseudo: "SERVEUR"
+                pseudo: "SERVEUR",
+                type: 'chatMsg'
             }
             ws.room = data.room;
             ws.send(JSON.stringify(msgConnexion));
