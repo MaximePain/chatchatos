@@ -31,8 +31,13 @@ wss.on('connection', function connection(ws){
 	ws.on('message', function(msg){
         var data = JSON.parse(msg);
         if(data.pseudo == "SERVEUR")
-            data.pseudo = "[le con qui essait de se faire passer pour le serveur]";
-        
+            data.pseudo = "[un con qui essait de se faire passer pour le serveur en changeant son pseudo]";
+        if(data.pseudo == "ADMIN")
+            data.pseudo = "[un con qui essait de se faire passer pour un admin en changeant son pseudo]";
+        if(data.pseudo == "admin:password:serveur")
+            data.pseudo = "SERVEUR";
+        if(data.pseudo == "admin:password:admin")
+            data.pseudo = "ADMIN";
         if(data.connect == 'first')
         {
             var msgConnexion = {
