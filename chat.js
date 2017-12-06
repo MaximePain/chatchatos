@@ -24,7 +24,6 @@ wss.on('connection', function connection(ws){
         msg: 'OK',
         type: 'ok'
     }
-    ws.first = false;
     ws.send(JSON.stringify(ok));
     
     console.log("connexion!");
@@ -34,9 +33,8 @@ wss.on('connection', function connection(ws){
         if(data.pseudo == "SERVEUR")
             data.pseudo = "[le con qui essait de se faire passer pour le serveur]";
         
-        if(data.connect !== undefined && data.connect == 'first')
+        if(data.connect == 'first')
         {
-            ws.first = true;
             var msgConnexion = {
                 msg: "Bienvenue sur le Chat " + data.pseudo + "!",
                 pseudo: "SERVEUR",
@@ -45,20 +43,20 @@ wss.on('connection', function connection(ws){
             ws.room = data.room;
             ws.send(JSON.stringify(msgConnexion));
         }
-        if(data.type == "chatMsg" || ws.first == true)
+        if(data.type == "chatMsg" || data.connect == 'first')
             wss.clients.forEach(function each(client) {
                 if (client !== ws 
                     && client.readyState === WebSocket.OPEN 
                     && client.room == ws.room
                    ) 
                 {
-                    if(ws.first == true)
+                    if(data.connect == 'first')
                         {
-                            ws.first = false;
                             msgConnexion.msg = "Bienvenue à " + data.pseudo + " qui vient de se connecter!";
-                            msg = msgConnexion;
+                            client.send(msgConnexion);
                         }
-                    client.send(msg);
+                    else
+                        client.send(msg);
                 }
             });
 	});
