@@ -17,7 +17,10 @@ app.get('/', function(req, res){
 });
 
 wss.on('connection', function connection(ws){
-	console.log("WOW CONNECTION");
+	var msgConnexion = {
+        msg: "Bienvenue sur le Chat!",
+        pseudo: "SERVEUR"
+    }
 	ws.on('message', function(msg){
         wss.clients.forEach(function each(client) {
             if (client !== ws && client.readyState === WebSocket.OPEN) {
