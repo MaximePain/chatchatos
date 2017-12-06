@@ -30,7 +30,14 @@
         
         
         <script>
-            var ws = new WebSocket("wss://chatchatosv0.herokuapp.com/");
+            var idRoom = window.location.pathname;
+            idRoom = idRoom.replace('/', '');
+
+            var ws = new WebSocket("ws://10.3.244.211:25567");
+            firstMsg = {
+                connect: 'first',
+                room: idRoom
+            }
             
             var addMsg = function(pseudo, msg){
                 var para = document.createElement("p");
@@ -42,7 +49,8 @@
             var send = function(){
                 var msg = {
                     msg: document.getElementsByName("textIN")[0].value,
-                    pseudo: document.getElementsByName("PSEUDO")[0].value
+                    pseudo: document.getElementsByName("PSEUDO")[0].value,
+                    type: 'chatMsg'
                 }
                 ws.send(JSON.stringify(msg));
                 addMsg(document.getElementsByName("PSEUDO")[0].value, document.getElementsByName("textIN")[0].value);
