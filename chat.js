@@ -4,8 +4,6 @@ const PORT = process.env.PORT || 5000
 
 var app = express();
 
-const wss = new WebSocket.Server( { PORT } );
-
 console.log('YOP!');
 
 app.get('/', function(req, res){
@@ -25,4 +23,6 @@ wss.on('connection', function connection(ws){
 });
 
 app.listen(PORT);
+
+const wss = new WebSocket.Server({ app});
 
