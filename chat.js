@@ -20,8 +20,12 @@ app.get('/', function(req, res){
 });
 
 wss.on('connection', function connection(ws){
+    var ok = {
+        msg: 'OK'
+    }
+    ws.send(JSON.parse(ok));
+    
 	ws.on('message', function(msg){
-        
         var data = JSON.parse(msg);
         if(data.connect !== undefined && data.connect == 'first')
         {

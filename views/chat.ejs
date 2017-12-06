@@ -39,7 +39,7 @@
                 room: idRoom
             }
             
-            ws.send(JSON.stringify(firstMsg));
+            
             
             var addMsg = function(pseudo, msg){
                 var para = document.createElement("p");
@@ -61,7 +61,10 @@
             
             ws.onmessage = function(RAW){
                 var obj = JSON.parse(RAW.data);
-                addMsg(obj.pseudo, obj.msg);
+                if(obj.type == 'chatMsg')
+                    addMsg(obj.pseudo, obj.msg);
+                else
+                    ws.send(JSON.stringify(firstMsg));
             }
             
             $("#textIN").keyup(function(event) {
