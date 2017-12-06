@@ -20,7 +20,7 @@ app.get('/', function(req, res){
 });
 
 wss.on('connection', function connection(ws){
-    wss.clients[wss.clients.lenght - 1].test = "yop";
+    wss.clients.client[wss.clients.client.lenght - 1].test = "yop";
 	ws.on('message', function(msg){
         
         var data = JSON.parse(msg);
