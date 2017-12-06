@@ -4,6 +4,10 @@ const PORT = process.env.PORT || 5000
 
 var app = express();
 
+const server = http.createServer(app);
+
+const wss = new WebSocket.Server({ server });
+
 console.log('YOP!');
 
 app.get('/', function(req, res){
@@ -22,7 +26,9 @@ wss.on('connection', function connection(ws){
 	});
 });
 
-app.listen(PORT);
+//app.listen(PORT);
 
-const wss = new WebSocket.Server({ app});
+server.listen(PORT, () => {
+    console.log(`Server started on port ${server.address().port} :)`);
+});
 
