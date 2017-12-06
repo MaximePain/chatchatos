@@ -1,6 +1,7 @@
 var express = require('express');
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 25567 });
+const PORT = process.env.PORT || 5000
 
 var app = express();
 
@@ -22,5 +23,5 @@ wss.on('connection', function connection(ws){
 	});
 });
 
-app.listen(25565);
+app.listen(PORT);
 
