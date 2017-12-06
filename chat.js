@@ -20,7 +20,6 @@ app.get('/', function(req, res){
 });
 
 wss.on('connection', function connection(ws){
-    wss.clients.client[wss.clients.client.length - 1].test = "yop";
 	ws.on('message', function(msg){
         
         var data = JSON.parse(msg);
@@ -30,15 +29,19 @@ wss.on('connection', function connection(ws){
                 msg: "Bienvenue sur le Chat!",
                 pseudo: "SERVEUR"
             }
+            ws.room = data.room;
             ws.send(JSON.stringify(msgConnexion));
-            
         }
-        console.log(ws.client.test);
-        wss.clients.forEach(function each(client) {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(msg);
-            }
-        });
+        if(data.type == "chatMsg")
+            wss.clients.forEach(function each(client) {
+                if (client !== ws 
+                    && client.readyState === WebSocket.OPEN 
+                    && client.room == ws.room
+                   ) 
+                {
+                    client.send(msg);
+                }
+            });
 	});
 });
 
