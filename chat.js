@@ -21,7 +21,7 @@ wss.on('connection', function connection(ws){
         msg: "Bienvenue sur le Chat!",
         pseudo: "SERVEUR"
     }
-    ws.send(JSON.stringify(msg));
+    ws.send(JSON.stringify(msgConnexion));
 	ws.on('message', function(msg){
         wss.clients.forEach(function each(client) {
             if (client !== ws && client.readyState === WebSocket.OPEN) {
