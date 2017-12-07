@@ -23,6 +23,8 @@ app.get('/', function(req, res){
 var salle = {
 };
 
+var date = new Date();
+
 wss.on('connection', function connection(ws){
     var ok = {
         msg: 'OK',
@@ -34,6 +36,7 @@ wss.on('connection', function connection(ws){
     
 	ws.on('message', function(msg){
         var data = JSON.parse(msg);
+        data.date = date;
         if(data.pseudo == "SERVEUR")
             data.pseudo = "[un con qui essait de se faire passer pour le serveur en changeant son pseudo]";
         if(data.pseudo == "ADMIN")
