@@ -20,9 +20,7 @@ app.get('/', function(req, res){
 });
 
 var salle = {
-    id: {
-        msg: []
-    }
+    msg: []
 }
 
 wss.on('connection', function connection(ws){
@@ -54,7 +52,9 @@ wss.on('connection', function connection(ws){
                 type: 'chatMsg'
             }
             ws.room = data.room;
-            salle[ws.room].msg.forEach(function(dataMsg){
+            if(salle[ws.room] === undefined)
+                salle[ws.room] = new salle;
+            salle.[ws.room].msg.forEach(function(dataMsg){
                 ws.send(JSON.stringify(dataMsg));
             });
             ws.send(JSON.stringify(msgConnexion));
