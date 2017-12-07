@@ -19,6 +19,12 @@ app.get('/', function(req, res){
     res.render('chat.ejs');
 });
 
+var salle = {
+    id: {
+        msg: []
+    }
+}
+
 wss.on('connection', function connection(ws){
     var ok = {
         msg: 'OK',
@@ -38,6 +44,8 @@ wss.on('connection', function connection(ws){
             data.pseudo = "SERVEUR";
         if(data.pseudo == "admin:password:admin")
             data.pseudo = "ADMIN";
+        
+        
         if(data.connect == 'first')
         {
             var msgConnexion = {
@@ -46,8 +54,16 @@ wss.on('connection', function connection(ws){
                 type: 'chatMsg'
             }
             ws.room = data.room;
+            salle[ws.room].forEach(function(dataMsg){
+                ws.send(JSON.stringify(dataMsg));
+            });
             ws.send(JSON.stringify(msgConnexion));
         }
+        
+        if(salle[ws.room].msg.length > 50)
+            salle[ws.room].msg.shift();
+        salle[ws.room].msg.push(data);
+        
         if(data.type == "chatMsg" || data.connect == 'first')
             wss.clients.forEach(function each(client) {
                 if (client !== ws 
