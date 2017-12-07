@@ -23,8 +23,6 @@ app.get('/', function(req, res){
 var salle = {
 };
 
-var date = new Date();
-
 wss.on('connection', function connection(ws){
     var ok = {
         msg: 'OK',
@@ -35,6 +33,7 @@ wss.on('connection', function connection(ws){
     console.log("connexion!");
     
 	ws.on('message', function(msg){
+        var date = new Date();
         var data = JSON.parse(msg);
         data.minutes = date.getMinutes() + 1;
         data.heures = date.getHours() + 1;

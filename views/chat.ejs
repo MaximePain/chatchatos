@@ -30,7 +30,6 @@
         
         
         <script>
-            var date = new Date();
             var pseudoBase = prompt("TON PSEUDO?: ", "mec_random");
             document.getElementsByName("PSEUDO")[0].value = pseudoBase;
             var idRoom = window.location.pathname;
@@ -46,6 +45,7 @@
             
             
             var addMsg = function(pseudo, msg, minutes, heures){
+                var date = new Date();
                 var para = document.createElement("p");
                 para.textContent =  String(heures) + ":" + String(minutes) + " - "+ String(pseudo) + ": " + String(msg);
                 document.getElementById("container").appendChild(para);
