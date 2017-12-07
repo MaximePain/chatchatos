@@ -19,11 +19,11 @@ app.get('/', function(req, res){
     res.render('chat.ejs');
 });
 
-var salle = {};
+var salleMsg = [];
 
-var salleO = {
+var salle = {
     msg: []
-}
+};
 
 wss.on('connection', function connection(ws){
     var ok = {
@@ -55,7 +55,7 @@ wss.on('connection', function connection(ws){
             }
             ws.room = data.room;
             if(salle[ws.room] === undefined)
-                salle[ws.room] = salle0;
+                salle[ws.room].msg = salle0;
             salle[ws.room].msg.forEach(function(dataMsg){
                 ws.send(JSON.stringify(dataMsg));
             });
