@@ -53,7 +53,9 @@ wss.on('connection', function connection(ws){
             var msgConnexion = {
                 msg: "Bienvenue sur le Chat " + data.pseudo + "!",
                 pseudo: "SERVEUR",
-                type: 'chatMsg'
+                type: 'chatMsg',
+                minutes: date.getMinutes(),
+                heures: date.getHours()
             }
             ws.room = data.room;
             if(salle[ws.room] === undefined)
