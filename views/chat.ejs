@@ -44,9 +44,9 @@
             
             
             
-            var addMsg = function(pseudo, msg, date){
+            var addMsg = function(pseudo, msg, minutes, heures){
                 var para = document.createElement("p");
-                para.textContent =  date.getHours() + ":" + date.getMinutes() + " - "+ String(pseudo) + ": " + String(msg);
+                para.textContent =  String(minutes) + ":" + String(heures) + " - "+ String(pseudo) + ": " + String(msg);
                 document.getElementById("container").appendChild(para);
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
             }
@@ -65,7 +65,7 @@
             ws.onmessage = function(RAW){
                 var obj = JSON.parse(RAW.data);
                 if(obj.type == 'chatMsg')
-                    addMsg(obj.pseudo, obj.msg, obj.date);
+                    addMsg(obj.pseudo, obj.msg, obj.minutes, obj.heures);
                 else if(obj.type == 'ok'){
                     console.log(obj);
                     ws.send(JSON.stringify(firstMsg));

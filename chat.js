@@ -36,7 +36,8 @@ wss.on('connection', function connection(ws){
     
 	ws.on('message', function(msg){
         var data = JSON.parse(msg);
-        data.date = date;
+        data.minutes = date.getMinutes();
+        data.heures = date.getHours();
         if(data.pseudo == "SERVEUR")
             data.pseudo = "[un con qui essait de se faire passer pour le serveur en changeant son pseudo]";
         if(data.pseudo == "ADMIN")
