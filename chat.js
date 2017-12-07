@@ -54,7 +54,7 @@ wss.on('connection', function connection(ws){
             ws.room = data.room;
             if(salle[ws.room] === undefined)
                 salle[ws.room] = new salle;
-            salle.[ws.room].msg.forEach(function(dataMsg){
+            salle[ws.room].msg.forEach(function(dataMsg){
                 ws.send(JSON.stringify(dataMsg));
             });
             ws.send(JSON.stringify(msgConnexion));
