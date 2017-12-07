@@ -35,7 +35,7 @@ wss.on('connection', function connection(ws){
 	ws.on('message', function(msg){
         var date = new Date();
         var data = JSON.parse(msg);
-        data.minutes = date.getMinutes() + 1;
+        data.minutes = date.getMinutes();
         data.heures = date.getHours() + 1;
         if(data.pseudo == "SERVEUR")
             data.pseudo = "[un con qui essait de se faire passer pour le serveur en changeant son pseudo]";
@@ -53,7 +53,7 @@ wss.on('connection', function connection(ws){
                 msg: "Bienvenue sur le Chat " + data.pseudo + "!",
                 pseudo: "SERVEUR",
                 type: 'chatMsg',
-                minutes: date.getMinutes() + 1,
+                minutes: date.getMinutes(),
                 heures: date.getHours() + 1
             }
             ws.room = data.room;
