@@ -19,7 +19,9 @@ app.get('/', function(req, res){
     res.render('chat.ejs');
 });
 
-var salle = {
+var salle {};
+
+var salleO = {
     msg: []
 }
 
@@ -53,7 +55,7 @@ wss.on('connection', function connection(ws){
             }
             ws.room = data.room;
             if(salle[ws.room] === undefined)
-                salle[ws.room] = new salle;
+                salle[ws.room] = salle0;
             salle[ws.room].msg.forEach(function(dataMsg){
                 ws.send(JSON.stringify(dataMsg));
             });
