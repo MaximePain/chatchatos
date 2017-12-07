@@ -19,7 +19,7 @@ app.get('/', function(req, res){
     res.render('chat.ejs');
 });
 
-var salle {};
+var salle = {};
 
 var salleO = {
     msg: []
