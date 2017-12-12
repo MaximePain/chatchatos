@@ -89,17 +89,17 @@ wss.on('connection', function connection(ws){
                     else if(data.connect == 'disconnect')
                         {
                             var msg = {
-                msg: ws.pseudo + " vient de se déconnecter!",
-                pseudo: "SERVEUR",
-                type: 'chatMsg',
-                minutes: date.getMinutes(),
-                heures: date.getHours() + 1
-            }
+                                msg: ws.pseudo + " vient de se déconnecter!",
+                                pseudo: "SERVEUR",
+                                type: 'chatMsg',
+                                minutes: date.getMinutes(),
+                                heures: date.getHours() + 1
+                            }
                             client.send(JSON.stringify(msg));
                         }
                 }
             });
-        ws.on('disconnect', function(){
+        /*ws.on('disconnect', function(){
             console.log(ws.pseudo + "vient de se deconnecter!");
             var msg = {
                 msg: ws.pseudo + " vient de se déconnecter!",
@@ -118,7 +118,7 @@ wss.on('connection', function connection(ws){
                         client.send(JSON.stringify(msg));
                     }
             });
-        });
+        });*/
 	});
 });
 
