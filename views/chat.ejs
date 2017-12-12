@@ -81,9 +81,10 @@
             });
             
             window.onbeforeunload = function () {
-                console.log("yop");
-    return "Do you really want to close?";
-};
+                console.log("bye!");
+                websocket.onclose = function () {}; // disable onclose handler first
+    websocket.close()
+            };
         </script>
         
     </body>
