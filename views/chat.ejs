@@ -24,14 +24,15 @@
         <input id="textIN" name="textIN" type="text" placeholder="MESSAGE">
         <input id="send" type="submit" value="SEND" onclick="send()" >
         <br/><br/>
-        <input name="PSEUDO" type="text" placeholder="PSEUDO">
+        <!--<input name="PSEUDO" type="text" placeholder="PSEUDO">-->
         
         
         
         
         <script>
             var pseudoBase = prompt("TON PSEUDO?: ", "mec_random");
-            document.getElementsByName("PSEUDO")[0].value = pseudoBase;
+            var pseudo = pseudoBase;
+            //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
             var idRoom = window.location.pathname;
             idRoom = idRoom.replace('/', '');
 
@@ -41,7 +42,6 @@
                 pseudo: pseudoBase,
                 room: idRoom
             }
-            
             
             
             var addMsg = function(pseudo, msg, minutes, heures){
@@ -56,11 +56,11 @@
                 var date = new Date();
                 var msg = {
                     msg: document.getElementsByName("textIN")[0].value,
-                    pseudo: document.getElementsByName("PSEUDO")[0].value,
+                    pseudo: pseudo,
                     type: 'chatMsg'
                 }
                 ws.send(JSON.stringify(msg));
-                addMsg(document.getElementsByName("PSEUDO")[0].value, document.getElementsByName("textIN")[0].value, date.getMinutes(), date.getHours());
+                addMsg(pseudo, document.getElementsByName("textIN")[0].value, date.getMinutes(), date.getHours());
                 document.getElementsByName("textIN")[0].value = "";
             }
             

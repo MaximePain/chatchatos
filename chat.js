@@ -37,20 +37,13 @@ wss.on('connection', function connection(ws){
         var data = JSON.parse(msg);
         data.minutes = date.getMinutes();
         data.heures = date.getHours() + 1;
-        if(data.pseudo == "SERVEUR")
-            data.pseudo = "[un con qui essait de se faire passer pour le serveur en changeant son pseudo]";
-        if(data.pseudo == "ADMIN")
-            data.pseudo = "[un con qui essait de se faire passer pour un admin en changeant son pseudo]";
-        if(data.pseudo == "admin:password:serveur")
-            data.pseudo = "SERVEUR";
-        if(data.pseudo == "admin:password:admin")
-            data.pseudo = "ADMIN";
             
         
         if(data.connect == 'first')
         {
+            ws.pseudo = data.pseudo
             var msgConnexion = {
-                msg: "Bienvenue sur le Chat " + data.pseudo + "!",
+                msg: "Bienvenue sur le Chat " + ws.pseudo + "!",
                 pseudo: "SERVEUR",
                 type: 'chatMsg',
                 minutes: date.getMinutes(),
@@ -63,6 +56,15 @@ wss.on('connection', function connection(ws){
                 ws.send(JSON.stringify(dataMsg));
             });
             ws.send(JSON.stringify(msgConnexion));
+            
+            if(ws.pseudo == "SERVEUR")
+                ws.pseudo = "[un con qui essait de se faire passer pour le serveur en changeant son pseudo]";
+            if(ws.pseudo == "ADMIN")
+                ws.pseudo = "[un con qui essait de se faire passer pour un admin en     changeant son pseudo]";
+            if(ws.pseudo == "admin:password:serveur")
+                ws.pseudo = "SERVEUR";
+            if(ws.pseudo == "admin:password:admin")
+                ws.pseudo = "ADMIN";
         }
         else{
                     if(salle[ws.room].msg.length > 50)
@@ -80,7 +82,7 @@ wss.on('connection', function connection(ws){
                 {
                     if(data.connect == 'first')
                         {
-                            msgConnexion.msg = "Bienvenue à " + data.pseudo + " qui vient de se connecter!";
+                            msgConnexion.msg = "Bienvenue à " + ws.pseudo + " qui vient de se connecter!";
                             client.send(JSON.stringify(msgConnexion));
                         }
                     else
