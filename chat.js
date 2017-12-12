@@ -37,7 +37,6 @@ wss.on('connection', function connection(ws){
         var data = JSON.parse(msg);
         data.minutes = date.getMinutes();
         data.heures = date.getHours() + 1;
-        data.pseudo = ws.pseudo;
         
         if(data.connect == 'first')
         {
@@ -71,7 +70,7 @@ wss.on('connection', function connection(ws){
             salle[ws.room].msg.shift();
         salle[ws.room].msg.push(data);
         }
-        
+        data.pseudo = ws.pseudo;
         
         if(data.type == "chatMsg" || data.connect == 'first')
             wss.clients.forEach(function each(client) {
