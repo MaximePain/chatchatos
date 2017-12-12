@@ -60,13 +60,13 @@
                     pseudo: pseudo,
                     type: 'chatMsg'
                 }
+                addMsg(pseudo, document.getElementsByName("textIN")[0].value, date.getMinutes(), date.getHours());
                 if(command == '/clear')
                     {
                         document.getElementById("container").innerHTML = '';
                     }
                 else
                     ws.send(JSON.stringify(msg));
-                addMsg(pseudo, document.getElementsByName("textIN")[0].value, date.getMinutes(), date.getHours());
                 document.getElementsByName("textIN")[0].value = "";
             }
             
