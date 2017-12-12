@@ -81,9 +81,13 @@
             });
             
             window.onbeforeunload = function () {
+                var msg = {
+                    type: 'disconnect'
+                }
+                ws.send(JSON.stringify(msg));
                 console.log("bye!");
-                websocket.onclose = function () {}; // disable onclose handler first
-    websocket.close()
+                //websocket.onclose = function () {}; // disable onclose handler first
+                //websocket.close()
             };
         </script>
         

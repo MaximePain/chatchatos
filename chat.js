@@ -72,7 +72,7 @@ wss.on('connection', function connection(ws){
         }
         data.pseudo = ws.pseudo;
         
-        if(data.type == "chatMsg" || data.connect == 'first')
+        if(data.type == "chatMsg" || data.connect == 'first' || data.type == 'disconnect')
             wss.clients.forEach(function each(client) {
                 if (client !== ws 
                     && client.readyState === WebSocket.OPEN 
@@ -84,8 +84,19 @@ wss.on('connection', function connection(ws){
                             msgConnexion.msg = "Bienvenue à " + ws.pseudo + " qui vient de se connecter!";
                             client.send(JSON.stringify(msgConnexion));
                         }
-                    else
+                    else if(data.connect == 'chatMsg')
                         client.send(JSON.stringify(data));
+                    else if(data.connect == 'disconnect')
+                        {
+                            var msg = {
+                msg: ws.pseudo + " vient de se déconnecter!",
+                pseudo: "SERVEUR",
+                type: 'chatMsg',
+                minutes: date.getMinutes(),
+                heures: date.getHours() + 1
+            }
+                            client.send(JSON.stringify(msg));
+                        }
                 }
             });
         ws.on('disconnect', function(){
