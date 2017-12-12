@@ -88,6 +88,14 @@ wss.on('connection', function connection(ws){
                         client.send(JSON.stringify(data));
                 }
             });
+        ws.on('disconnect', function(){
+            wss.clients.forEach(function each(client){
+                if(client !== ws
+                    && client.readyState === WebSocket.OPEN
+                    && client.room == ws.room
+                  )
+            });
+        });
 	});
 });
 
