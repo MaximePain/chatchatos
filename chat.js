@@ -89,6 +89,7 @@ wss.on('connection', function connection(ws){
                 }
             });
         ws.on('disconnect', function(){
+            console.log(ws.pseudo + "vient de se deconnecter!");
             var msg = {
                 msg: ws.pseudo + " vient de se déconnecter!",
                 pseudo: "SERVEUR",
