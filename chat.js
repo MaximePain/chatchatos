@@ -84,9 +84,9 @@ wss.on('connection', function connection(ws){
                             msgConnexion.msg = "Bienvenue à " + ws.pseudo + " qui vient de se connecter!";
                             client.send(JSON.stringify(msgConnexion));
                         }
-                    else if(data.connect == 'chatMsg')
+                    else if(data.type == 'chatMsg')
                         client.send(JSON.stringify(data));
-                    else if(data.connect == 'disconnect')
+                    else if(data.type == 'disconnect')
                         {
                             var msg = {
                                 msg: ws.pseudo + " vient de se déconnecter!",
