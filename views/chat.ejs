@@ -54,12 +54,18 @@
             
             var send = function(){
                 var date = new Date();
+                var command = document.getElementsByName("textIN")[0].value;
                 var msg = {
                     msg: document.getElementsByName("textIN")[0].value,
                     pseudo: pseudo,
                     type: 'chatMsg'
                 }
-                ws.send(JSON.stringify(msg));
+                if(command == '/clear')
+                    {
+                        document.getElementById("container").innerHTML = '';
+                    }
+                else
+                    ws.send(JSON.stringify(msg));
                 addMsg(pseudo, document.getElementsByName("textIN")[0].value, date.getMinutes(), date.getHours());
                 document.getElementsByName("textIN")[0].value = "";
             }
