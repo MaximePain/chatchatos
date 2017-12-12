@@ -89,11 +89,22 @@ wss.on('connection', function connection(ws){
                 }
             });
         ws.on('disconnect', function(){
+            var msg = {
+                msg: ws.pseudo + " vient de se déconnecter!",
+                pseudo: "SERVEUR",
+                type: 'chatMsg',
+                minutes: date.getMinutes(),
+                heures: date.getHours() + 1
+            }
             wss.clients.forEach(function each(client){
                 if(client !== ws
                     && client.readyState === WebSocket.OPEN
                     && client.room == ws.room
                   )
+                    {
+
+                        client.send(JSON.stringify(msg));
+                    }
             });
         });
 	});
