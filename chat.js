@@ -88,7 +88,7 @@ wss.on('connection', function connection(ws){
                         client.send(JSON.stringify(data));
                 }
             });
-        wss.on('disconnect', function(){
+        ws.on('disconnect', function(){
             console.log(ws.pseudo + "vient de se deconnecter!");
             var msg = {
                 msg: ws.pseudo + " vient de se déconnecter!",
