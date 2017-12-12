@@ -80,10 +80,9 @@
                 }
             });
             
-            window.addEventListener("beforeunload", function (e) {
-                var confirmationMessage = "test";
-                return confirmationMessage;                            //Webkit, Safari, Chrome
-            });
+            window.onbeforeunload = function () {
+    return "Do you really want to close?";
+};
         </script>
         
     </body>
