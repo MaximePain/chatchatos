@@ -30,6 +30,7 @@
         
         
         <script>
+            var debug = false;
             var pseudoBase = prompt("TON PSEUDO?: ", "mec_random");
             var pseudo = pseudoBase;
             //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
@@ -72,10 +73,11 @@
             
             ws.onmessage = function(RAW){
                 var obj = JSON.parse(RAW.data);
+                if(debug)
+                    console.log(obj);
                 if(obj.type == 'chatMsg')
                     addMsg(obj.pseudo, obj.msg, obj.minutes, obj.heures);
                 else if(obj.type == 'ok'){
-                    console.log(obj);
                     ws.send(JSON.stringify(firstMsg));
                 }
                 else if(obj.type == 'pong')

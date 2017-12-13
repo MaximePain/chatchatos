@@ -104,6 +104,7 @@ wss.on('connection', function connection(ws){
                                 type: 'pong',
                                 nbClients: wss.clients.length
                             }
+                            client.send(JSON.stringify(ping));
                         }
                 }
             });
