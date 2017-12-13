@@ -111,10 +111,11 @@ wss.on('connection', function connection(ws){
             var ping = {
                 type: 'pong',
                 msg: 'nbClients :) : ',
-                nbClients: nbClients,
+                nbClients: nbClients + 1,
                 msg2: '-_-'
             }
             ws.send(JSON.stringify(ping));
+            nbClients = 0;
         }
         /*ws.on('disconnect', function(){
             console.log(ws.pseudo + "vient de se deconnecter!");
