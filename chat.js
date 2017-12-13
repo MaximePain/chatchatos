@@ -74,11 +74,10 @@ wss.on('connection', function connection(ws){
         
         if(data.type == "ping")
         {
-            console.log(wss.clients.length);
             var ping = {
                 type: 'pong',
                 msg: 'nbClients :) : ',
-                nbClients: wss.clients,
+                nbClients: wss.clients.size,
                 msg2: '-_-'
             }
             ws.send(JSON.stringify(ping));
