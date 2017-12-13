@@ -100,7 +100,7 @@ wss.on('connection', function connection(ws){
                     else if(data.type == "ping")
                         {
                             var ping = {
-                                type: 'ping',
+                                type: 'pong',
                                 nbClients: wss.clients.length
                             }
                         }
