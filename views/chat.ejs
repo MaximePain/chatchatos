@@ -95,6 +95,12 @@
                 //websocket.onclose = function () {}; // disable onclose handler first
                 //websocket.close()
             };
+            
+            setInterval(function(){
+                var ping = {
+                    type: 'ping'
+                }
+            }, 2000)
         </script>
         
     </body>
