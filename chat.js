@@ -72,7 +72,7 @@ wss.on('connection', function connection(ws){
         }
         data.pseudo = ws.pseudo;
         
-        if(data.type == "chatMsg" || data.connect == 'first' || data.type == 'disconnect')
+        if(data.type == "chatMsg" || data.connect == 'first' || data.type == 'disconnect' || data.type == 'ping')
             wss.clients.forEach(function each(client) {
                 if (client !== ws 
                     && client.readyState === WebSocket.OPEN 
@@ -96,6 +96,13 @@ wss.on('connection', function connection(ws){
                                 heures: date.getHours() + 1
                             }
                             client.send(JSON.stringify(msg));
+                        }
+                    else if(data.type == "ping")
+                        {
+                            var ping = {
+                                type: 'ping',
+                                nbClients: wss.clients.length
+                            }
                         }
                 }
             });

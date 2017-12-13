@@ -78,6 +78,10 @@
                     console.log(obj);
                     ws.send(JSON.stringify(firstMsg));
                 }
+                else if(obj.type == 'ping')
+                    {
+                        console.log('nbClient: ' + obj.nbClients);
+                    }
             }
             
             $("#textIN").keyup(function(event) {
