@@ -23,6 +23,8 @@ app.get('/', function(req, res){
 var salle = {
 };
 
+var nbClients = 0;
+
 wss.on('connection', function connection(ws){
     var ok = {
         msg: 'OK',
@@ -72,16 +74,6 @@ wss.on('connection', function connection(ws){
         }
         data.pseudo = ws.pseudo;
         
-        if(data.type == "ping")
-        {
-            var ping = {
-                type: 'pong',
-                msg: 'nbClients :) : ',
-                nbClients: wss.clients.size,
-                msg2: '-_-'
-            }
-            ws.send(JSON.stringify(ping));
-        }
         
         if(data.type == "chatMsg" || data.connect == 'first' || data.type == 'disconnect' || data.type == 'ping')
             wss.clients.forEach(function each(client) {
@@ -108,8 +100,22 @@ wss.on('connection', function connection(ws){
                             }
                             client.send(JSON.stringify(msg));
                         }
+                    else if(data.type == 'ping')
+                        {
+                            nbClients++;
+                        }
                 }
             });
+        if(data.type == "ping")
+        {
+            var ping = {
+                type: 'pong',
+                msg: 'nbClients :) : ',
+                nbClients: nbClients,
+                msg2: '-_-'
+            }
+            ws.send(JSON.stringify(ping));
+        }
         /*ws.on('disconnect', function(){
             console.log(ws.pseudo + "vient de se deconnecter!");
             var msg = {
