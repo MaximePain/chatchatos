@@ -77,7 +77,7 @@ wss.on('connection', function connection(ws){
             var ping = {
                 type: 'pong',
                 msg: 'nbClients :) : ',
-                nbClients: wss.clients.client.length,
+                nbClients: wss.clients,
                 msg2: '-_-'
             }
             ws.send(JSON.stringify(ping));
