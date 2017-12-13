@@ -78,9 +78,9 @@
                     console.log(obj);
                     ws.send(JSON.stringify(firstMsg));
                 }
-                else if(obj.type == 'ping')
+                else if(obj.type == 'pong')
                     {
-                        console.log('nbClient: ' + obj.nbClients);
+                        console.log('nbClients: ' + obj.nbClients);
                     }
             }
             
