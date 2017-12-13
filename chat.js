@@ -72,6 +72,17 @@ wss.on('connection', function connection(ws){
         }
         data.pseudo = ws.pseudo;
         
+        if(data.type == "ping")
+        {
+            var ping = {
+                type: 'pong',
+                msg: 'nbClients :) : ',
+                nbClients: wss.clients.client.length,
+                msg2: '-_-'
+            }
+            ws.send(JSON.stringify(ping));
+        }
+        
         if(data.type == "chatMsg" || data.connect == 'first' || data.type == 'disconnect' || data.type == 'ping')
             wss.clients.forEach(function each(client) {
                 if (client !== ws 
@@ -96,17 +107,6 @@ wss.on('connection', function connection(ws){
                                 heures: date.getHours() + 1
                             }
                             client.send(JSON.stringify(msg));
-                        }
-                    else if(data.type == "ping")
-                        {
-                            console.log('ping!');
-                            var ping = {
-                                type: 'pong',
-                                msg: 'nbClients :) : ',
-                                nbClients: wss.clients.length,
-                                msg2: '-_-'
-                            }
-                            client.send(JSON.stringify(ping));
                         }
                 }
             });
