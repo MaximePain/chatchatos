@@ -74,6 +74,7 @@ wss.on('connection', function connection(ws){
         
         if(data.type == "ping")
         {
+            console.log(wss.clients.length);
             var ping = {
                 type: 'pong',
                 msg: 'nbClients :) : ',
