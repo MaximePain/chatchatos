@@ -14,7 +14,7 @@
         }
     </style>
     
-    <body>
+    <body id="body">
         
         <h1>CHAT TEST</h1>
         <p id="nbClients">BONJOUR</p><br/>
@@ -46,8 +46,11 @@
             
             
             var addMsg = function(pseudo, msg, minutes, heures){
+                
+                //string=encodeURIComponent(string); // %3Cscript%3E...%3C/script%3
                 var date = new Date();
                 var para = document.createElement("p");
+                var body = document.getElementById("body");
                 msg = String(msg);
                 var msgTot = msg;
                 var msgTemp = "";
@@ -67,6 +70,16 @@
                         span.innerHTML += msgTemp;
                         msgTot = msgTot.substring(nb2 + msgBalise.length + 3);
                     }*/
+                while(msgTot.indexOf("<style>") != -1 && msgTot.indexOf("</style>") msgTot.indexOf("<blue>"))
+                    {
+                        var nb = msgTot.indexOf("<style>");
+                        var nb2 = msgTot.indexOf("</style>");
+                        msgBalise = "style;
+                        msgTemp = msgTot.substring(nb + msgBalise.length + 2, nb2);
+                        var style = document.createElement("style");
+                        body.appendChild(style);
+                        style.innerHTML += msgTemp;
+                    }
                 para.innerHTML += msgTot;
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
             }
