@@ -59,12 +59,13 @@
                         msgBalise = "blue";
                         msgTemp = msgTot.substring(0, nb);
                         para.textContent += msgTemp;
-                        msgTemp = msgTot.substring(nb + msgBalise.length + 1, nb2 + msgBalise.length + 1);
+                        msgTemp = msgTot.substring(nb + msgBalise.length + 2, nb2);
                         var span = document.createElement("span");
                         span.textContent += msgTemp;
                         para.appendChild(span);
                         msgTot = msgTot.substring(nb2 + msgBalise.length + 1);
                     }
+                para.textContent += msgTot;
                 document.getElementById("container").appendChild(para);
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
             }
