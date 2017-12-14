@@ -59,11 +59,11 @@
                         var nb2 = msgTot.indexOf("</blue>");
                         msgBalise = "blue";
                         msgTemp = msgTot.substring(0, nb);
-                        para.textContent += msgTemp;
+                        para.innerHTML += msgTemp;
                         msgTemp = msgTot.substring(nb + msgBalise.length + 2, nb2);
                         var span = document.createElement("span");
                         para.appendChild(span);
-                        span.textContent += msgTemp;
+                        span.innerHTML += msgTemp;
                         msgTot = msgTot.substring(nb2 + msgBalise.length + 3);
                     }
                 para.innerHTML += msgTot;
