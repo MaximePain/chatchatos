@@ -10,6 +10,8 @@
         <p>Bonsoir, bienvenue dans ce truc.. <br>bref.. <br>voila:</p>
         <input type="text" placeholder="NOM DE LA SALLE", name="inputSalle", id="inputSalle">
         <input type="submit" value="GO!" onclick="go()">
+        <br/>
+        <div id="container"></div>
         
         <script>
             var debug = true;
@@ -26,6 +28,16 @@
             };
             
             
+            var init = function(stats){
+                var div = document.getElementById("container");
+                for(var name in stats){
+                    var a = document.createElement("a");
+                    a.href = String(name) + " -" + stats[name] + " personnes";
+                    div.appendChild(a);
+                }
+            }
+            
+            
             var ws = new WebSocket("wss://chatchatosv0.herokuapp.com");
             var firstMsg = {
                 type: 'getStats'
@@ -37,12 +49,14 @@
                 if(obj.type == 'getStats'){
                     var stats = JSON.parse(obj.stats);
                     console.log(stats);
+                    init(stats);
                 }
                 else if(obj.type == 'ok'){
                     console.log('ok!');
                     ws.send(JSON.stringify(firstMsg));
                 }
             }
+            
             
             
         </script>

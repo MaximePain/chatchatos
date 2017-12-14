@@ -124,7 +124,7 @@ wss.on('connection', function connection(ws){
                 if (client.room !== undefined)
                     {
                         if(stats[client.room] === undefined)
-                            stats[client.room] = 0;
+                            stats[client.room] = 1;
                         else
                             stats[client.room]++;
                     }
