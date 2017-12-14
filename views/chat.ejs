@@ -48,7 +48,7 @@
             var addMsg = function(pseudo, msg, minutes, heures){
                 var date = new Date();
                 var para = document.createElement("p");
-                para.textContent =  String(heures) + ":" + String(minutes) + " - "+ String(pseudo) + ": " + msg;
+                para.textContent =  String(heures) + ":" + String(minutes) + " - "+ String(pseudo) + ": " + String.raw(msg);
                 document.getElementById("container").appendChild(para);
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
             }
