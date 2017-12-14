@@ -68,7 +68,7 @@ wss.on('connection', function connection(ws){
                 ws.pseudo = "ADMIN";
         }
         else{
-                    if(salle[ws.room].msg.length > 50)
+                    if(salle[ws.room].msg.length > 255)
             salle[ws.room].msg.shift();
         salle[ws.room].msg.push(data);
         }
