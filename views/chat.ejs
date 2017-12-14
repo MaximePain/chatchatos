@@ -16,7 +16,7 @@
     
     <body id="body">
         
-        <h1>CHAT TEST</h1>
+        <h1 id="titre">CHAT TEST</h1>
         <p id="nbClients">BONJOUR</p><br/>
             <div id="container">
         </div>
@@ -36,6 +36,8 @@
             //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
             var idRoom = window.location.pathname;
             idRoom = idRoom.replace('/', '');
+            
+            document.getElementById("titre").textContent += " : SALLE : " + idRoom;
 
             var ws = new WebSocket("wss://chatchatosv0.herokuapp.com");
             firstMsg = {
