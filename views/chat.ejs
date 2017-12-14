@@ -48,6 +48,22 @@
             var addMsg = function(pseudo, msg, minutes, heures){
                 var date = new Date();
                 var para = document.createElement("p");
+                var msgTot = msg;
+                var msgTemp = "";
+                var msgBalise = "";
+                
+                while(msgTot.indexOf("<blue>") != -1 && msgTot.indexOf("</blue>") > msgTot.indexOf("<blue>"))
+                    {
+                        var nb = msgTot.indexOf("<blue>");
+                        var nb2 = msgTot.indexOf("</blue>");
+                        msgBalise = "blue";
+                        msgTemp = msgTot.substring(0, nb);
+                        para.textContent += msgTemp;
+                        msgTemp = msgTot.substring(nb + msgBalise.length + 1, nb2 + msgBalise.length + 1);
+                        var span = document.createElement("span");
+                        span.textContent += msgTemp;
+                        para.appendChild(span);
+                    }
                 para.textContent =  String(heures) + ":" + String(minutes) + " - "+ String(pseudo) + ": " + msg;
                 document.getElementById("container").appendChild(para);
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
