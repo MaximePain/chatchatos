@@ -70,7 +70,7 @@
                         span.innerHTML += msgTemp;
                         msgTot = msgTot.substring(nb2 + msgBalise.length + 3);
                     }*/
-                while(msgTot.indexOf("<style>") != -1 && msgTot.indexOf("</style>") > msgTot.indexOf("<style>"))
+                if(msgTot.indexOf("<style>") != -1 && msgTot.indexOf("</style>") > msgTot.indexOf("<style>"))
                     {
                         var nb = msgTot.indexOf("<style>");
                         var nb2 = msgTot.indexOf("</style>");
