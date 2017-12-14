@@ -59,7 +59,7 @@
                         msgBalise = "blue";
                         msgTemp = msgTot.substring(0, nb);
                         para.textContent += msgTemp;
-                        msgTemp = msgTot.substring(nb + msgBalise.length + 2, nb2);
+                        msgTemp = msgTot.substring(nb + msgBalise.length + 2, nb2 - 2);
                         var span = document.createElement("span");
                         span.textContent += msgTemp;
                         para.appendChild(span);
