@@ -67,10 +67,10 @@ wss.on('connection', function connection(ws){
             if(ws.pseudo == "admin:password:admin")
                 ws.pseudo = "ADMIN";
         }
-        else{
-                    if(salle[ws.room].msg.length > 255)
-            salle[ws.room].msg.shift();
-        salle[ws.room].msg.push(data);
+        else if(data.type != 'getStats'){
+            if(salle[ws.room].msg.length > 255)
+                salle[ws.room].msg.shift();
+            salle[ws.room].msg.push(data);
         }
         data.pseudo = ws.pseudo;
         
