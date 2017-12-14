@@ -37,9 +37,9 @@
                 if(obj.type == 'getStats'){
                     var stats = JSON.parse(obj.stats);
                     console.log(stats);
-                    
                 }
                 else if(obj.type == 'ok'){
+                    console.log('ok!');
                     ws.send(JSON.stringify(firstMsg));
                 }
             }

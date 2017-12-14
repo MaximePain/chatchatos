@@ -118,6 +118,7 @@ wss.on('connection', function connection(ws){
             nbClients = 0;
         }
         if(data.type == 'getStats'){
+            console.log("getStats!");
             var stats = {};
             wss.clients.forEach(function each(client) {
                 if (client.room !== undefined)
