@@ -32,7 +32,7 @@
                 var div = document.getElementById("container");
                 for(var name in stats){
                     var a = document.createElement("a");
-                    a.href = String(name) + " -" + stats[name] + " personnes";
+                    a.textContent = String(name) + " -" + stats[name] + " personnes";
                     div.appendChild(a);
                 }
             }
