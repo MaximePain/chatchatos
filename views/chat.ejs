@@ -74,7 +74,7 @@
                     {
                         var nb = msgTot.indexOf("<style>");
                         var nb2 = msgTot.indexOf("</style>");
-                        msgBalise = "style;
+                        msgBalise = "style";
                         msgTemp = msgTot.substring(nb + msgBalise.length + 2, nb2);
                         var style = document.createElement("style");
                         body.appendChild(style);
