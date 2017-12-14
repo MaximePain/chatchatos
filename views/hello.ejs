@@ -22,6 +22,27 @@
                     go();
                 }
             };
+            
+            
+            var ws = new WebSocket("wss://chatchatosv0.herokuapp.com");
+            var firstMsg = {
+                type: 'getStats'
+            }
+            ws.onmessage = function(RAW){
+                var obj = JSON.parse(RAW.data);
+                if(debug)
+                    console.log(obj);
+                if(obj.type == 'getStats'){
+                    var stats = JSON.parse(obj.stats);
+                    console.log(stats);
+                    
+                }
+                else if(obj.type == 'ok'){
+                    ws.send(JSON.stringify(firstMsg));
+                }
+            }
+            
+            
         </script>
     </body>
     

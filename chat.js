@@ -117,6 +117,25 @@ wss.on('connection', function connection(ws){
             ws.send(JSON.stringify(ping));
             nbClients = 0;
         }
+        if(data.type == 'getStats'){
+            var stats = {};
+            wss.clients.forEach(function each(client) {
+                if (client.room !== undefined)
+                    {
+                        if(stats[client.room] === undefined)
+                            stats[client.room] = 0;
+                        else
+                            stats[client.room]++;
+                    }
+            });
+            var statMsg = {
+                type: 'getStats',
+                stats: JSON.stringify(stats)
+            }
+            ws.send(JSON.stringify(statMsg));
+        }
+        
+        
         /*ws.on('disconnect', function(){
             console.log(ws.pseudo + "vient de se deconnecter!");
             var msg = {
