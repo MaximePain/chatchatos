@@ -63,6 +63,7 @@
                         var span = document.createElement("span");
                         span.textContent += msgTemp;
                         para.appendChild(span);
+                        msgTot = msgTot.substring(nb2 + msgBalise.length + 1);
                     }
                 document.getElementById("container").appendChild(para);
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
