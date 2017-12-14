@@ -62,8 +62,8 @@
                         para.textContent += msgTemp;
                         msgTemp = msgTot.substring(nb + msgBalise.length + 2, nb2);
                         var span = document.createElement("span");
-                        span.textContent += msgTemp;
                         para.appendChild(span);
+                        span.textContent += msgTemp;
                         msgTot = msgTot.substring(nb2 + msgBalise.length + 3);
                     }
                 para.textContent += msgTot;
