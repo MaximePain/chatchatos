@@ -20,7 +20,7 @@
                         
             function go(){
                 windo = window.open("https://www.google.com",'_blank', 'toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=10000, top=10000, width=10, height=10, visible=none', '');
-                windo.blur();
+                windo.opener.parent.focus();
                 if(window.location.href[window.location.href.length - 1] != '/')
                    window.location.href += '/';
                 window.location.href += document.getElementsByName("inputSalle")[0].value;
