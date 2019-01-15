@@ -62,9 +62,10 @@
             }
             
             
-            var addMsg = function(pseudo, msg, minutes, heures){
+            var addMsg = function(pseudo, msg, minutes, heures, notifBool){
                 
                 //string=encodeURIComponent(string); // %3Cscript%3E...%3C/script%3
+		let notif = notifBool | false
                 var date = new Date();
                 var para = document.createElement("p");
                 var body = document.getElementById("body");
@@ -99,7 +100,7 @@
                     }
                 para.innerHTML += msgTot;
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
-				if(msgNotif < 3 && !focused)
+				if(msgNotif < 3 && !focused && notif)
 				{
 					msgNotif++;
 					var notification = new Notification('chatchatos', {
@@ -132,7 +133,7 @@
                 if(debug)
                     console.log(obj);
                 if(obj.type == 'chatMsg')
-                    addMsg(obj.pseudo, obj.msg, obj.minutes, obj.heures);
+                    addMsg(obj.pseudo, obj.msg, obj.minutes, obj.heures, true);
                 else if(obj.type == 'ok'){
                     ws.send(JSON.stringify(firstMsg));
                 }
