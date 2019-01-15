@@ -108,7 +108,7 @@
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
                 if(checkURL(msgTot))
                     {
-                        para.innerHTML += '<img src="' + msgTot + '" />';
+                        para.innerHTML += '<img style="max-height: 200px; max-width: 200px;" src="' + msgTot + '" />';
                         document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
                     }
 				if(msgNotif < 3 && !focused && notif)
