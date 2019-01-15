@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>CHAT</title>
+        <title id="titleHead">CHAT</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
     
@@ -38,12 +38,14 @@
             idRoom = idRoom.replace('/', '');
 			
 			var msgNotif = 0;
+			var clignoOn = false;
 			
 			var focused = true;
 
 			window.onfocus = function() {
 				focused = true;
 				msgNotif = 0;
+				clignoOn = false;
 			};
 			window.onblur = function() {
 				focused = false;
@@ -65,7 +67,7 @@
             var addMsg = function(pseudo, msg, minutes, heures, notifBool){
                 
                 //string=encodeURIComponent(string); // %3Cscript%3E...%3C/script%3
-		let notif = notifBool | false
+				let notif = notifBool | false
                 var date = new Date();
                 var para = document.createElement("p");
                 var body = document.getElementById("body");
@@ -107,6 +109,9 @@
 						//icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
 						body: msgTot
 					});
+				}
+				if(!focused){
+					clignoOn = true;
 				}
             }
             
@@ -164,7 +169,23 @@
                     type: 'ping'
                 }
                 ws.send(JSON.stringify(ping));
-            }, 4000)
+            }, 4000);
+			
+			var titleHead = document.getElementById('titleHead');
+			var titleHeadSwitch = true;
+			setInterval(function(){
+				if(clignoOn){
+					if(titleHeadSwitch){
+						titleHead.innerHTML = 'msg recu!";
+						titleHeadSwitch = false;
+					}
+					else{
+						titleHead.innerHTML = 'CHAT!";
+						titleHeadSwitch = true;
+					}
+				}
+			}, 500);
+			
         </script>
         
     </body>
