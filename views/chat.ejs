@@ -64,6 +64,9 @@
                 room: idRoom
             }
             
+            function checkURL(url) {
+                return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+            }
             
             var addMsg = function(pseudo, msg, minutes, heures, notifBool){
                 
@@ -103,6 +106,11 @@
                     }
                 para.innerHTML += msgTot;
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
+                if(checkURL(msgTot))
+                    {
+                        para.innerHTML += '<img src="' + msgTot + '" />';
+                        document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
+                    }
 				if(msgNotif < 3 && !focused && notif)
 				{
 					msgNotif++;
