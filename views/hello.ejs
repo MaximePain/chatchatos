@@ -17,6 +17,8 @@
         <script>
             var debug = true;
             //var windo
+			if (Notification.permission !== "granted")
+				Notification.requestPermission();
                         
             function go(){
                 //windo = window.open("https://www.google.com",'_blank', 'toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=10000, top=10000, width=10, height=10, visible=none', '');

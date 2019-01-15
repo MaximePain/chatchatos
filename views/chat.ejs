@@ -36,6 +36,21 @@
             //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
             var idRoom = window.location.pathname;
             idRoom = idRoom.replace('/', '');
+			
+			var msgNotif = 0;
+			
+			var focused = true;
+
+			window.onfocus = function() {
+				focused = true;
+				msgNotif = 0;
+			};
+			window.onblur = function() {
+				focused = false;
+			};
+			
+			if (Notification.permission !== "granted")
+				Notification.requestPermission();
             
             document.getElementById("titre").textContent += " : SALLE : " + idRoom;
 
@@ -84,6 +99,14 @@
                     }
                 para.innerHTML += msgTot;
                 document.getElementById("container").scrollTop = document.getElementById("container").scrollHeight;
+				if(msgNotif < 3 && !focused)
+				{
+					msgNotif++;
+					var notification = new Notification('chatchatos', {
+						//icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+						body: msgTot
+					});
+				}
             }
             
             var send = function(){
