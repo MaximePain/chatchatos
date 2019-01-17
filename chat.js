@@ -112,7 +112,7 @@ wss.on('connection', function connection(ws){
                         {
                             nbClients++;
                         }
-                    else if(data.type == 'pseudo?')
+                    if(data.type == 'pseudo?')
                         {
                             var valPseudoExist = false;
                             salle[ws.room].pseudoLs.forEach(function each(pseudoTemp){
