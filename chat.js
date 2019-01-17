@@ -71,7 +71,7 @@ wss.on('connection', function connection(ws){
             salle[ws.room].pseudoLs.push(ws.pseudo);
         }
         else if(data.type != 'getStats' && data.type != 'pseudo?' && data.type != 'ping'){
-            console.log('fnqukfnqzkjf: ' + data);
+            //console.log('fnqukfnqzkjf: ' + data);
             if(salle[ws.room].msg.length > 1000)
                 salle[ws.room].msg.shift();
             salle[ws.room].msg.push(data);
@@ -119,12 +119,7 @@ wss.on('connection', function connection(ws){
                         client.send(JSON.stringify(data));
                     else if(data.type == 'disconnect')
                         {
-                            var iF = -1;
-                            for(var i = 0; i < salle[ws.room].pseudoLs.length; i++)
-                                {
-                                    if(data.pseudo == salle[ws.room].pseudoLs[i])
-                                        salle[ws.room].pseudoLs[i] = '';
-                                }
+                            
                             var msg = {
                                 msg: ws.pseudo + " vient de se déconnecter!",
                                 pseudo: "SERVEUR",
@@ -133,6 +128,12 @@ wss.on('connection', function connection(ws){
                                 heures: date.getHours() + 1
                             }
                             client.send(JSON.stringify(msg));
+                            var iF = -1;
+                            for(var i = 0; i < salle[ws.room].pseudoLs.length; i++)
+                                {
+                                    if(data.pseudo == salle[ws.room].pseudoLs[i])
+                                        salle[ws.room].pseudoLs[i] = '';
+                                }
                         }
                     else if(data.type == 'ping')
                         {

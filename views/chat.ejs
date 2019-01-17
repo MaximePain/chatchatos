@@ -188,7 +188,8 @@
             
             $("#textIN").keyup(function(event) {
                 if (event.keyCode === 13) {
-                    send();
+                    if(document.getElementsByName("textIN")[0].value != '' || document.getElementsByName("textIN")[0].value != ' ')
+                        send();
                 }
             });
             
