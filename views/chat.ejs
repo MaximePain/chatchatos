@@ -168,8 +168,10 @@
                     }
                 else if(obj.type == 'pseudo?')
                     {
-                        if(obj.result == 'okay')
+                        if(obj.result == 'okay'){
+                            console.log("okay");
                             ws.send(JSON.stringify(firstMsg));
+                        }
                         else{
                             askPseudo();
                             alert('pseudo deja pris!');
