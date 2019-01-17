@@ -42,6 +42,7 @@ wss.on('connection', function connection(ws){
         
         if(data.connect == 'first')
         {
+            console.log('first');
             ws.pseudo = data.pseudo
             var msgConnexion = {
                 msg: "Bienvenue sur le Chat " + ws.pseudo + "!",
