@@ -19,6 +19,8 @@ app.get('/', function(req, res){
     res.render('chat.ejs');
 });
 
+app.use(express.static(__dirname + '/public'));
+
 
 var salle = {
 };
