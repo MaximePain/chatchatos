@@ -35,7 +35,7 @@
             var ws = new WebSocket("wss://chatchatosv0.herokuapp.com");
             var pseudoOkay = false;
             
-            setInterval(function (){
+            var askPseudo = function(){
                  pseudoBase = prompt("TON PSEUDO?: ", "mec_random");
                 //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
                 var idRoom = window.location.pathname;
@@ -45,12 +45,7 @@
                     pseudo: pseudoBase
                 }
                 ws.send(JSON.stringify(msgPseudo));
-                setTimeout(function(){
-                    if(!pseudoOkay)
-                        alert('pseudo deja pris!');
-                }, 100);
-            }, 10);
-               
+            }
             
 			var pseudo = pseudoBase;
                 
@@ -165,7 +160,7 @@
                 if(obj.type == 'chatMsg')
                     addMsg(obj.pseudo, obj.msg, obj.minutes, obj.heures, true);
                 else if(obj.type == 'ok'){
-                    ws.send(JSON.stringify(firstMsg));
+                    askPseudo();
                 }
                 else if(obj.type == 'pong')
                     {
@@ -174,7 +169,11 @@
                 else if(obj.type == 'pseudo?')
                     {
                         if(obj.result == 'okay')
-                            pseudoOkay = true;
+                            ws.send(JSON.stringify(firstMsg));
+                        else{
+                            askPseudo();
+                            alert('pseudo deja pris!');
+                        }
                     }
             }
             
