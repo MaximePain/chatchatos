@@ -67,6 +67,9 @@ wss.on('connection', function connection(ws){
                 ws.pseudo = "SERVEUR";
             if(ws.pseudo == "admin:password:admin")
                 ws.pseudo = "ADMIN";
+            
+            if(salle[ws.room].pseudoLs === undefined)
+                salle[ws.room].pseudoLs = [];
             salle[ws.room].pseudoLs.push(ws.pseudo);
         }
         else if(data.type != 'getStats' && data.type != 'pseudo?' && data.type != 'ping'){
