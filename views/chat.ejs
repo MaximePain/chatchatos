@@ -177,10 +177,11 @@
                             room: idRoom
                         }
                             ws.send(JSON.stringify(firstMsg));
+                            pseudo = pseudoBase;
                         }
                         else{
-                            askPseudo();
                             alert('pseudo deja pris!');
+                            askPseudo();
                         }
                     }
             }
