@@ -92,7 +92,7 @@ wss.on('connection', function connection(ws){
                                 type: 'pseudo?',
                                 result: result
                             };
-                            client.send(JSON.stringify(msg));
+                            ws.send(JSON.stringify(msg));
                         }
         
         data.pseudo = ws.pseudo;
