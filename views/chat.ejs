@@ -34,12 +34,12 @@
             var pseudoBase = '';
             var ws = new WebSocket("wss://chatchatosv0.herokuapp.com");
             var pseudoOkay = false;
+            var idRoom = window.location.pathname;
+            idRoom = idRoom.replace('/', '');
             
             var askPseudo = function(){
                  pseudoBase = prompt("TON PSEUDO?: ", "mec_random");
                 //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
-                var idRoom = window.location.pathname;
-                idRoom = idRoom.replace('/', '');
                 let msgPseudo = {
                     type: 'pseudo?',
                     pseudo: pseudoBase
