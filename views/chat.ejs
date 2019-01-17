@@ -69,7 +69,7 @@
             
             document.getElementById("titre").textContent += " : SALLE : " + idRoom;
 
-            firstMsg = {
+            var firstMsg = {
                 connect: 'first',
                 pseudo: pseudoBase,
                 room: idRoom
@@ -169,7 +169,13 @@
                 if(obj.type == 'pseudo?')
                     {
                         console.log("pseudo");
+                        
                         if(obj.result == 'okay'){
+                            firstMsg = {
+                connect: 'first',
+                pseudo: pseudoBase,
+                room: idRoom
+            }
                             ws.send(JSON.stringify(firstMsg));
                         }
                         else{
