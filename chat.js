@@ -122,6 +122,7 @@ wss.on('connection', function connection(ws){
                             var result = 'nope';
                             if(!valPseudoExist)
                                 result = 'okay';
+                            console.log('result: ', result);
                             var msg = {
                                 type: 'pseudo?',
                                 result: result
