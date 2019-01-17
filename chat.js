@@ -71,7 +71,7 @@ wss.on('connection', function connection(ws){
             salle[ws.room].pseudoLs.push(ws.pseudo);
         }
         else if(data.type != 'getStats' && data.type != 'pseudo?' && data.type != 'ping'){
-            //console.log(data);
+            console.log('fnqukfnqzkjf: ' + data);
             if(salle[ws.room].msg.length > 1000)
                 salle[ws.room].msg.shift();
             salle[ws.room].msg.push(data);
@@ -84,7 +84,7 @@ wss.on('connection', function connection(ws){
                             var valPseudoExist = false;
                             if(salle[ws.room] !== undefined)
                             salle[ws.room].pseudoLs.forEach(function each(pseudoTemp){
-                                if(ws.pseudo == pseudoTemp)
+                                if(data.pseudo == pseudoTemp)
                                     valPseudoExist = true;
                             });
                             var result = 'nope';
