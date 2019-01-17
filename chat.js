@@ -115,10 +115,11 @@ wss.on('connection', function connection(ws){
                         }
                     if(data.type == 'pseudo?')
                         {
+                            console.log('pseudo');
                             var valPseudoExist = false;
                             if(salle[ws.room] !== undefined)
                             salle[ws.room].pseudoLs.forEach(function each(pseudoTemp){
-                                if(data.pseudo == pseudoTemp)
+                                if(ws.pseudo == pseudoTemp)
                                     valPseudoExist = true;
                             });
                             var result = 'nope';
