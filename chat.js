@@ -69,6 +69,7 @@ wss.on('connection', function connection(ws){
             salle[ws.room].pseudoLs.push(ws.pseudo);
         }
         else if(data.type != 'getStats' && data.type != 'pseudo?'){
+            console.log(data);
             if(salle[ws.room].msg.length > 1000)
                 salle[ws.room].msg.shift();
             salle[ws.room].msg.push(data);
