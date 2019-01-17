@@ -88,7 +88,7 @@ wss.on('connection', function connection(ws){
                                     valPseudoExist = true;
                             });
                             var result = 'nope';
-                            if(!valPseudoExist)
+                            if(!valPseudoExist && data.pseudo != '' && data.pseudo != ' ')
                                 result = 'okay';
                             console.log('result: ', result);
                             var msg = {
