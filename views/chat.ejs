@@ -31,6 +31,14 @@
         
         
         <script>
+            //visuel
+            
+            var fondAleatoire = ['image1.png', 'image2.png'];
+            var randomNumber = Math.floor(Math.random * fondAleatoire.length);
+            document.getElementsById("fond").backgroundImage = "url(../images/aleatoire/" + fondAleatoire[randomNumber] + ");";
+            
+            
+            //systeme
             var debug = false;
             var pseudoBase = '';
             var ws = new WebSocket("wss://chatchatosv0.herokuapp.com");
