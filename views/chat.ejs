@@ -31,12 +31,29 @@
         
         <script>
             var debug = false;
-            var pseudoBase = prompt("TON PSEUDO?: ", "megapute");
-            var pseudo = pseudoBase;
-            //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
-            var idRoom = window.location.pathname;
-            idRoom = idRoom.replace('/', '');
-			
+            var pseudoBase = '';
+            var ws = new WebSocket("wss://chatchatosv0.herokuapp.com");
+            var pseudoOkay = false;
+            
+            setInterval(function (){
+                 pseudoBase = prompt("TON PSEUDO?: ", "mec_random");
+                //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
+                var idRoom = window.location.pathname;
+                idRoom = idRoom.replace('/', '');
+                let msgPseudo = {
+                    type: 'pseudo?',
+                    pseudo: pseudoBase
+                }
+                ws.send(JSON.stringify(msgPseudo));
+                setTimeout(function(){
+                    if(!pseudoOkay)
+                        alert('pseudo deja pris!');
+                }, 100);
+            }, 10);
+               
+            
+			var pseudo = pseudoBase;
+                
 			var msgNotif = 0;
 			var clignoOn = false;
 			
@@ -57,7 +74,6 @@
             
             document.getElementById("titre").textContent += " : SALLE : " + idRoom;
 
-            var ws = new WebSocket("wss://chatchatosv0.herokuapp.com");
             firstMsg = {
                 connect: 'first',
                 pseudo: pseudoBase,
@@ -71,7 +87,7 @@
             var addMsg = function(pseudo, msg, minutes, heures, notifBool){
                 
                 //string=encodeURIComponent(string); // %3Cscript%3E...%3C/script%3
-				let notif = notifBool | false
+				let notif = notifBool || false
                 var date = new Date();
                 var para = document.createElement("p");
                 var body = document.getElementById("body");
@@ -154,6 +170,11 @@
                 else if(obj.type == 'pong')
                     {
                         document.getElementById("nbClients").textContent = "Il y a " + String(obj.nbClients) + " personnes sur ce salon";
+                    }
+                else if(obj.type == 'pseudo?')
+                    {
+                        if(obj.result == 'exist')
+                            pseudoOkay = true;
                     }
             }
             

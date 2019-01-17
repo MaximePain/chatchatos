@@ -66,6 +66,7 @@ wss.on('connection', function connection(ws){
                 ws.pseudo = "SERVEUR";
             if(ws.pseudo == "admin:password:admin")
                 ws.pseudo = "ADMIN";
+            salle[ws.room].pseudoLs.push(ws.pseudo);
         }
         else if(data.type != 'getStats'){
             if(salle[ws.room].msg.length > 1000)
@@ -75,7 +76,7 @@ wss.on('connection', function connection(ws){
         data.pseudo = ws.pseudo;
         
         
-        if(data.type == "chatMsg" || data.connect == 'first' || data.type == 'disconnect' || data.type == 'ping')
+        if(data.type == "chatMsg" || data.connect == 'first' || data.type == 'disconnect' || data.type == 'ping' || data.type == 'pseudo?')
             wss.clients.forEach(function each(client) {
                 if (client !== ws 
                     && client.readyState === WebSocket.OPEN 
@@ -91,6 +92,12 @@ wss.on('connection', function connection(ws){
                         client.send(JSON.stringify(data));
                     else if(data.type == 'disconnect')
                         {
+                            var iF = -1;
+                            for(var i = 0; i < salle[ws.room].pseudoLs.length; i++)
+                                {
+                                    if(data.pseudo == salle[ws.room].pseudoLs[i])
+                                        salle[ws.room].pseudoLs[i] = '';
+                                }
                             var msg = {
                                 msg: ws.pseudo + " vient de se déconnecter!",
                                 pseudo: "SERVEUR",
@@ -103,6 +110,22 @@ wss.on('connection', function connection(ws){
                     else if(data.type == 'ping')
                         {
                             nbClients++;
+                        }
+                    else if(data.type == 'pseudo?')
+                        {
+                            var valPseudoExist = false;
+                            salle[ws.room].pseudoLs.forEach(function each(pseudoTemp){
+                                if(data.pseudo == pseudoTemp)
+                                    valPseudoExist = true;
+                            });
+                            var result = 'nope';
+                            if(valPseudoExist)
+                                result = 'exist';
+                            var msg = {
+                                type: 'pseudo?',
+                                result: 'exist'
+                            };
+                            client.send(JSON.stringify(msg));
                         }
                 }
             });
