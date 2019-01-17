@@ -123,7 +123,7 @@ wss.on('connection', function connection(ws){
                                 result = 'exist';
                             var msg = {
                                 type: 'pseudo?',
-                                result: 'exist'
+                                result: result
                             };
                             client.send(JSON.stringify(msg));
                         }
