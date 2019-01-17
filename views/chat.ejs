@@ -168,8 +168,8 @@
                     }
                 else if(obj.type == 'pseudo?')
                     {
+                        console.log("pseudo");
                         if(obj.result == 'okay'){
-                            console.log("okay");
                             ws.send(JSON.stringify(firstMsg));
                         }
                         else{
