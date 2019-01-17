@@ -53,7 +53,7 @@ wss.on('connection', function connection(ws){
             }
             ws.room = data.room;
             if(salle[ws.room] === undefined)
-                salle[ws.room] = {msg: []};
+                salle[ws.room] = {msg: [], pseudoLs: []};
             salle[ws.room].msg.forEach(function(dataMsg){
                 ws.send(JSON.stringify(dataMsg));
             });
@@ -68,8 +68,6 @@ wss.on('connection', function connection(ws){
             if(ws.pseudo == "admin:password:admin")
                 ws.pseudo = "ADMIN";
             
-            if(salle[ws.room].pseudoLs === undefined)
-                salle[ws.room].pseudoLs = [];
             salle[ws.room].pseudoLs.push(ws.pseudo);
         }
         else if(data.type != 'getStats' && data.type != 'pseudo?' && data.type != 'ping'){
@@ -80,6 +78,7 @@ wss.on('connection', function connection(ws){
         }
         else if(data.type == 'pseudo?')
                         {
+                            ws.room = data.room;
                             if(salle[ws.room] !== undefined)
                                 console.log(salle[ws.room].pseudoLs);
                             var valPseudoExist = false;

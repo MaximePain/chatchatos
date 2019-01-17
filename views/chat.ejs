@@ -42,6 +42,7 @@
                 //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
                 var msgPseudo = {
                     type: 'pseudo?',
+                    room: idRoom,
                     pseudo: pseudoBase
                 }
                 ws.send(JSON.stringify(msgPseudo));
