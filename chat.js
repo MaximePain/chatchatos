@@ -80,7 +80,8 @@ wss.on('connection', function connection(ws){
         }
         else if(data.type == 'pseudo?')
                         {
-                            console.log(salle[ws.room].pseudoLs);
+                            if(salle[ws.room] !== undefined)
+                                console.log(salle[ws.room].pseudoLs);
                             var valPseudoExist = false;
                             if(salle[ws.room] !== undefined)
                             salle[ws.room].pseudoLs.forEach(function each(pseudoTemp){
