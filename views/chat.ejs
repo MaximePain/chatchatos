@@ -172,10 +172,10 @@
                         
                         if(obj.result == 'okay'){
                             firstMsg = {
-                connect: 'first',
-                pseudo: pseudoBase,
-                room: idRoom
-            }
+                            connect: 'first',
+                            pseudo: pseudoBase,
+                            room: idRoom
+                        }
                             ws.send(JSON.stringify(firstMsg));
                         }
                         else{

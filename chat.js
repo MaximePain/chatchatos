@@ -75,10 +75,32 @@ wss.on('connection', function connection(ws){
                 salle[ws.room].msg.shift();
             salle[ws.room].msg.push(data);
         }
+        else if(data.type == 'pseudo?')
+                        {
+                            console.log('pseudo');
+                            var valPseudoExist = false;
+                            if(salle[ws.room] !== undefined)
+                            salle[ws.room].pseudoLs.forEach(function each(pseudoTemp){
+                                if(ws.pseudo == pseudoTemp)
+                                    valPseudoExist = true;
+                            });
+                            var result = 'nope';
+                            if(!valPseudoExist)
+                                result = 'okay';
+                            console.log('result: ', result);
+                            var msg = {
+                                type: 'pseudo?',
+                                result: result
+                            };
+                            client.send(JSON.stringify(msg));
+                        }
+        
         data.pseudo = ws.pseudo;
         
+                    
         
-        if(data.type == "chatMsg" || data.connect == 'first' || data.type == 'disconnect' || data.type == 'ping' || data.type == 'pseudo?')
+        
+        if(data.type == "chatMsg" || data.connect == 'first' || data.type == 'disconnect' || data.type == 'ping')
             wss.clients.forEach(function each(client) {
                 if (client !== ws 
                     && client.readyState === WebSocket.OPEN 
@@ -112,25 +134,6 @@ wss.on('connection', function connection(ws){
                     else if(data.type == 'ping')
                         {
                             nbClients++;
-                        }
-                    if(data.type == 'pseudo?')
-                        {
-                            console.log('pseudo');
-                            var valPseudoExist = false;
-                            if(salle[ws.room] !== undefined)
-                            salle[ws.room].pseudoLs.forEach(function each(pseudoTemp){
-                                if(ws.pseudo == pseudoTemp)
-                                    valPseudoExist = true;
-                            });
-                            var result = 'nope';
-                            if(!valPseudoExist)
-                                result = 'okay';
-                            console.log('result: ', result);
-                            var msg = {
-                                type: 'pseudo?',
-                                result: result
-                            };
-                            client.send(JSON.stringify(msg));
                         }
                 }
             });
