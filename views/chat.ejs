@@ -18,7 +18,7 @@
     
     <body id="fond2">
         
-        <h1 id="titre">CHAT TEST</h1>
+        <h1 id="titre" class ="salle"></h1>
         <p id="nbClients">BONJOUR</p><br/>
             <div id="container">
         </div>
@@ -48,7 +48,7 @@
             idRoom = idRoom.replace('/', '');
             
             var askPseudo = function(){
-                 pseudoBase = prompt("TON PSEUDO?: ", "mec_random");
+                 pseudoBase = prompt("TON PSEUDO : ", "mec_random");
                 //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
                 var msgPseudo = {
                     type: 'pseudo?',

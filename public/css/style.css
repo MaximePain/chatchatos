@@ -28,7 +28,6 @@
     word-wrap: break-word;
     -webkit-transition-duration: 1s; /* Safari */
     transition-duration: 1s;
-    cursor: pointer;
     background-color: white; 
     border: 2px solid silver;
     margin:auto; /* centrer */
@@ -92,4 +91,27 @@
   overflow: auto;
   cursor: text;
   
+}
+
+.salle
+{
+    color: black;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 100%;
+    letter-spacing: 0.1em ;
+    word-wrap: break-word;
+    -webkit-transition-duration: 1s; /* Safari */
+    transition-duration: 1s;
+    cursor: default;
+    background-color: white; 
+    border: 2px solid silver;
+    margin:auto; /* centrer */
+    margin-top: 2%;
+    width: 50%;
+    border-radius: 10px;
+    outline : none;
+    
 }
