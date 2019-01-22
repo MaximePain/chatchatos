@@ -39,19 +39,6 @@
     outline : none;
 }
 
-
-.nomdelasalle:hover 
-{
-  background-image: linear-gradient(to right, #eeff00, #FEFEFE, #FEFEFE, #eeff00);
-  background-size: contain;
-  color: rgb(12, 12, 12);
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    border: 1px white;
-   
-  -webkit-text-stroke: 1px;
-  -webkit-text-stroke-color:  #afafaf;
-}
-
 .go
 {
   color: black;
