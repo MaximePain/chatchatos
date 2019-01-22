@@ -85,9 +85,9 @@
   cursor: pointer;
   background-color: white; 
   border: 2px solid silver;
-  margin:auto; /* centrer */
+  margin-left:0.5%; /* centrer */
   margin-top: 2%;
-  width: 90%;
+  width: 95%;
   border-radius: 10px;
   overflow: auto;
   cursor: text;
