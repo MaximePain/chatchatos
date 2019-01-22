@@ -38,6 +38,9 @@
             var randomNumber = Math.floor(Math.random() * fondAleatoire.length);
             document.getElementById("fond2").style.backgroundImage = "url(../images/aleatoire/" + fondAleatoire[randomNumber] + ")";
             
+            var decoDetectTimeout = setTimeout( () => {
+                
+            }, 10);
             
             //systeme
             var debug = false;
@@ -78,7 +81,7 @@
 			if (Notification.permission !== "granted")
 				Notification.requestPermission();
             
-            document.getElementById("titre").textContent += " : SALLE : " + idRoom;
+            document.getElementById("titre").textContent += "SALLE : " + idRoom;
 
             var firstMsg = {
                 connect: 'first',
@@ -176,6 +179,7 @@
                 else if(obj.type == 'pong')
                     {
                         document.getElementById("nbClients").textContent = "Il y a " + String(obj.nbClients) + " personnes sur ce salon";
+                        clearTimeout(decoDetectTimeout);
                     }
                 if(obj.type == 'pseudo?')
                     {
@@ -214,11 +218,15 @@
             };
             
             setInterval(function(){
+                decoDetectTimeout = setTimeout( () => {
+                    alert("Perte de connexion avec le serveur!");
+                    location.href = "/";
+                }, 1000);
                 var ping = {
                     type: 'ping'
                 }
                 ws.send(JSON.stringify(ping));
-            }, 4000);
+            }, 2000);
 			
 			var titleHead = document.getElementById('titleHead');
 			var titleHeadSwitch = true;
