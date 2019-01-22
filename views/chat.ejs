@@ -39,8 +39,8 @@
             document.getElementById("fond2").style.backgroundImage = "url(../images/aleatoire/" + fondAleatoire[randomNumber] + ")";
             
             var decoDetectTimeout = setTimeout( () => {
-                
             }, 10);
+            var decoDetectPoint = 0;
             
             //systeme
             var debug = false;
@@ -180,6 +180,7 @@
                     {
                         document.getElementById("nbClients").textContent = "Il y a " + String(obj.nbClients) + " personnes sur ce salon";
                         clearTimeout(decoDetectTimeout);
+                        decoDetectPoint = 0;
                     }
                 if(obj.type == 'pseudo?')
                     {
@@ -218,10 +219,15 @@
             };
             
             setInterval(function(){
-                decoDetectTimeout = setTimeout( () => {
-                    alert("Perte de connexion avec le serveur!");
-                    location.href = "/";
-                }, 1000);
+                if(focused)
+                    decoDetectTimeout = setTimeout( () => {
+                        decoDetectPoint++;
+                    }, 1000);
+                if(decoDetectPoint > 3)
+                    {
+                        alert("Perte de connexion avec le serveur!");
+                        location.href = "/";
+                    }
                 var ping = {
                     type: 'ping'
                 }
