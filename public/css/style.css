@@ -141,3 +141,26 @@
     
 }
 
+span
+{
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  position: left;
+  text-decoration: none;
+  display: block;
+  font-size: 100%;
+  letter-spacing: 0.1em ;
+  word-wrap: break-word;
+  -webkit-transition-duration: 1s; /* Safari */
+  transition-duration: 1s;
+  background-color: white; 
+  border: 2px solid silver;
+  margin-left:0.5%; /* centrer */
+  margin-top: 2%;
+  width: 20%;
+  border-radius: 10px;
+  outline : none;
+  cursor : default;
+}
+
