@@ -124,7 +124,7 @@ wss.on('connection', function connection(ws){
         else if(data.type == "askPseudo")
         {
             let msg = {
-                type: 'connect',
+                type: 'askPseudo',
                 pseudo: getPersonneById(data.id).pseudo
             }
             ws.send(JSON.stringify(msg));
@@ -231,7 +231,7 @@ wss.on('connection', function connection(ws){
 
 function generateId()
 {
-    return Math.random() * 1000000;
+    return Math.floor(Math.random() * 1000000);
 }
 
 function getPersonneById(id){
