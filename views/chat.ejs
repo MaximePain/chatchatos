@@ -48,14 +48,13 @@
             var pseudoOkay = false;
             var idRoom = window.location.pathname;
             idRoom = idRoom.replace('/', '');
+            var id = sessionStorage.getItem('id');
+
             
             var askPseudo = function(){
-                 pseudoBase = prompt("TON PSEUDO : ", "mec_random");
-                //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
-                var msgPseudo = {
-                    type: 'pseudo?',
-                    room: idRoom,
-                    pseudo: pseudoBase
+                let msgPseudo = {
+                    type: 'askPseudo',
+                    id: id
                 }
                 ws.send(JSON.stringify(msgPseudo));
             }
@@ -181,22 +180,17 @@
                         clearTimeout(decoDetectTimeout);
                         decoDetectPoint = 0;
                     }
-                if(obj.type == 'pseudo?')
+                if(obj.type == 'askPseudo')
                     {
                         console.log(obj);
-                        if(obj.result == 'okay'){
-                            firstMsg = {
+                        pseudoBase = obj.pseudo;
+                        firstMsg = {
                             connect: 'first',
                             pseudo: pseudoBase,
                             room: idRoom
                         }
-                            ws.send(JSON.stringify(firstMsg));
-                            pseudo = pseudoBase;
-                        }
-                        else{
-                            alert('pseudo deja pris ou pas valide!');
-                            askPseudo();
-                        }
+                        ws.send(JSON.stringify(firstMsg));
+                        pseudo = pseudoBase;
                     }
             }
             
