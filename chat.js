@@ -247,9 +247,10 @@ setInterval(function(){
             personne[i].ping++;
             if(personne[i].ping > 4)
             {
-                for(let y = 0; y < salle[personne[i].room].pseudoLs.length; i++)
-                    if(personne[i].pseudo == salle[personne[i].room].pseudoLs[i])
-                        salle[ws.room].pseudoLs[i] = '';
+                if(salle[personne[i].room] !== undefined)
+                    for(let y = 0; y < salle[personne[i].room].pseudoLs.length; i++)
+                        if(personne[i].pseudo == salle[personne[i].room].pseudoLs[i])
+                            salle[personne[i].room].pseudoLs[i] = '';
                 personne[i] = {};
             }
         }
