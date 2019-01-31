@@ -18,6 +18,7 @@
         <div id="container"></div>
         
         <script>
+            var id = sessionStorage.getItem('id');
             //visuel
             
             
@@ -45,6 +46,7 @@
 
 
             document.getElementById("inputSalle").onkeyup = function(event) {
+                wantGo = false;
                 if (event.keyCode === 13) {
                     go();
                 }
@@ -95,9 +97,11 @@
                 
                 if(obj.type == "connect")
                 {
+                    if(id == undefined)
+                        id = obj.id;
                     if(obj.id != 0)
                     {
-                        sessionStorage.setItem('id', obj.id);
+                        sessionStorage.setItem('id', id);
                         if(window.location.href[window.location.href.length - 1] != '/')
                                 window.location.href += '/';
                                 window.location.href += document.getElementsByName("inputSalle")[0].value;
@@ -133,6 +137,7 @@
             var inputPseudo = document.getElementById("inputPseudo");
             inputPseudo.onkeyup = function(){
                 updateTaken();
+                wantGo = false;
             };
 
             function updateTaken(){

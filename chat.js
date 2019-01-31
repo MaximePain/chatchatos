@@ -162,12 +162,9 @@ wss.on('connection', function connection(ws){
                                 heures: date.getHours() + 1
                             }
                             client.send(JSON.stringify(msg));
-                            var iF = -1;
                             for(var i = 0; i < salle[ws.room].pseudoLs.length; i++)
-                                {
                                     if(data.pseudo == salle[ws.room].pseudoLs[i])
                                         salle[ws.room].pseudoLs[i] = '';
-                                }
                         }
                     else if(data.type == 'ping')
                         {
@@ -242,6 +239,23 @@ function getPersonneById(id){
     }
     return 0;
 }
+
+setInterval(function(){
+    for(let i = 0; i < personne.length; i++){
+        if(personne[i].ping !== undefined){
+            personne[i].ping++;
+            if(personne[i].ping > 4)
+            {
+                for(var i = 0; i < salle[ws.room].pseudoLs.length; i++)
+                    if(personne[i].pseudo == salle[ws.room].pseudoLs[i])
+                        salle[ws.room].pseudoLs[i] = '';
+                personne[i] = {};
+            }
+        }
+        else
+            personne[i].ping = 0;
+    }
+}, 2000);
 
 //app.listen(PORT);
 
