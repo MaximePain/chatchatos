@@ -29,7 +29,7 @@ var personne = [{}];
 
 /*personne[0] = {
     id: '0',
-    salle: ''
+    room: ''
 };*/
 
 var nbClients = 0;
@@ -247,8 +247,8 @@ setInterval(function(){
             personne[i].ping++;
             if(personne[i].ping > 4)
             {
-                for(let y = 0; y < salle[ws.room].pseudoLs.length; i++)
-                    if(personne[i].pseudo == salle[ws.room].pseudoLs[i])
+                for(let y = 0; y < salle[personne[i].room].pseudoLs.length; i++)
+                    if(personne[i].pseudo == salle[personne[i].room].pseudoLs[i])
                         salle[ws.room].pseudoLs[i] = '';
                 personne[i] = {};
             }
