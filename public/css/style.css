@@ -16,11 +16,10 @@
 /* bloc des messages de discussion */
 #container
 {
-  background-color: white; 
+  background: rgba(255,255,255,0.60);
   width: 98.25%;
   margin-left:-0.5%;
   padding: 16px 20px;
-  opacity: 0.60; 
 }
 
 /* Bloc du nom de la salle */
