@@ -224,10 +224,12 @@
                 if(decoDetectPoint > 3)
                     {
                         alert("Perte de connexion avec le serveur!");
-                        location.href = "/";
+                        location.reload();
+                        decoDetectPoint = 0;
                     }
                 var ping = {
-                    type: 'ping'
+                    type: 'ping',
+                    id: id
                 }
                 ws.send(JSON.stringify(ping));
             }, 2000);
