@@ -16,7 +16,7 @@
     </style>
     
     <body id="fond2">
-       <h1 id="titre" class ="salle zoom"></h1>
+       <h1 id="titre" onclick="aleaBackground()" class ="salle zoom"></h1>
         <p id="nbClients" class="nombredepersonne">BONJOUR</p><br/>
             <div id="container">
         </div>
@@ -32,13 +32,17 @@
         <script>
             //visuel
             
-            var fondAleatoire = ['js.jpg','avengers.jpg','avengers2.jpg','spidermandeadpool.jpg','spiderman.jpg','marvel.jpg','planete.jpg','deadpool.jpg','snk2.png','snk3.png','snk1.jpg','ironman.jpg', 'voler.jpg', 'vendredi12.jpg', 'mario.jpg', 'neutron.jpg', 'pikachu.jpg', 'raichu.jpg'];
-            var randomNumber = Math.floor(Math.random() * fondAleatoire.length);
-            document.getElementById("fond2").style.backgroundImage = "url(../images/aleatoire/" + fondAleatoire[randomNumber] + ")";
-            
+            function aleaBackground(){
+                let fondAleatoire = ['js.jpg','avengers.jpg','avengers2.jpg','spidermandeadpool.jpg','spiderman.jpg','marvel.jpg','planete.jpg','deadpool.jpg','snk2.png','snk3.png','snk1.jpg','ironman.jpg', 'voler.jpg', 'vendredi12.jpg', 'mario.jpg', 'neutron.jpg', 'pikachu.jpg', 'raichu.jpg'];
+                let randomNumber = Math.floor(Math.random() * fondAleatoire.length);
+                document.getElementById("fond2").style.backgroundImage = "url(../images/aleatoire/" + fondAleatoire[randomNumber] + ")";
+            }
+
+            aleaBackground();
+
             var decoDetectTimeout = setTimeout( () => {
-                
             }, 10);
+            var decoDetectPoint = 0;
             
             //systeme
             var debug = false;
@@ -47,14 +51,14 @@
             var pseudoOkay = false;
             var idRoom = window.location.pathname;
             idRoom = idRoom.replace('/', '');
+            var id = sessionStorage.getItem('id');
+
             
             var askPseudo = function(){
-                 pseudoBase = prompt("TON PSEUDO : ", "mec_random");
-                //document.getElementsByName("PSEUDO")[0].value = pseudoBase;
-                var msgPseudo = {
-                    type: 'pseudo?',
-                    room: idRoom,
-                    pseudo: pseudoBase
+                console.log("askPseudo");
+                let msgPseudo = {
+                    type: 'askPseudo',
+                    id: id
                 }
                 ws.send(JSON.stringify(msgPseudo));
             }
@@ -178,23 +182,20 @@
                     {
                         document.getElementById("nbClients").textContent = "Il y a " + String(obj.nbClients) + " personnes sur ce salon";
                         clearTimeout(decoDetectTimeout);
+                        decoDetectPoint = 0;
                     }
-                if(obj.type == 'pseudo?')
+                if(obj.type == 'askPseudo')
                     {
                         console.log(obj);
-                        if(obj.result == 'okay'){
-                            firstMsg = {
+                        pseudoBase = obj.pseudo;
+                        console.log("pseudo: " + pseudoBase);
+                        firstMsg = {
                             connect: 'first',
                             pseudo: pseudoBase,
                             room: idRoom
                         }
-                            ws.send(JSON.stringify(firstMsg));
-                            pseudo = pseudoBase;
-                        }
-                        else{
-                            alert('pseudo deja pris ou pas valide!');
-                            askPseudo();
-                        }
+                        ws.send(JSON.stringify(firstMsg));
+                        pseudo = pseudoBase;
                     }
             }
             
@@ -216,10 +217,15 @@
             };
             
             setInterval(function(){
-                decoDetectTimeout = setTimeout( () => {
-                    alert("Perte de connexion avec le serveur!");
-                    location.href = "/";
-                }, 1000);
+                if(focused)
+                    decoDetectTimeout = setTimeout( () => {
+                        decoDetectPoint++;
+                    }, 1000);
+                if(decoDetectPoint > 3)
+                    {
+                        alert("Perte de connexion avec le serveur!");
+                        location.href = "/";
+                    }
                 var ping = {
                     type: 'ping'
                 }

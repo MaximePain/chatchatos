@@ -156,6 +156,7 @@ opacity: 1;
 /* Effet d'agrandissement pour le bloc du nom de la salle.. ou autre */
 .zoom {
   transition: transform 1.5s; /* Animation */
+  cursor: pointer;
   
 }
 .zoom:hover {

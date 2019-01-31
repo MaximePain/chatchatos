@@ -25,6 +25,13 @@ app.use(express.static(__dirname + '/public'));
 var salle = {
 };
 
+var personne = [{}];
+
+/*personne[0] = {
+    id: '0',
+    salle: ''
+};*/
+
 var nbClients = 0;
 
 wss.on('connection', function connection(ws){
@@ -72,7 +79,7 @@ wss.on('connection', function connection(ws){
             
             salle[ws.room].pseudoLs.push(ws.pseudo);
         }
-        else if(data.type != 'getStats' && data.type != 'pseudo?' && data.type != 'ping'){
+        else if(data.type != 'getStats' && data.type != 'pseudo?' && data.type != 'ping' && data.type != 'connect' && data.type != 'askPseudo'){
             //console.log('fnqukfnqzkjf: ' + data);
             if(salle[ws.room].msg.length > 1000)
                 salle[ws.room].msg.shift();
@@ -83,22 +90,45 @@ wss.on('connection', function connection(ws){
                             ws.room = data.room;
                             if(salle[ws.room] !== undefined)
                                 console.log(salle[ws.room].pseudoLs);
-                            var valPseudoExist = false;
+                            let valPseudoExist = false;
                             if(salle[ws.room] !== undefined)
                             salle[ws.room].pseudoLs.forEach(function each(pseudoTemp){
                                 if(data.pseudo == pseudoTemp)
                                     valPseudoExist = true;
                             });
-                            var result = 'nope';
+                            let result = 'nope';
                             if(!valPseudoExist && data.pseudo != '' && data.pseudo != ' ')
                                 result = 'okay';
                             console.log('result: ', result);
-                            var msg = {
+                            let msg = {
                                 type: 'pseudo?',
                                 result: result
                             };
                             ws.send(JSON.stringify(msg));
                         }
+        if(data.type == "connect")
+        {
+            let id = generateId();
+            let msg = {
+                type: 'connect',
+                id: id
+            }
+            personne.push({
+                id: id,
+                room: data.room,
+                pseudo: data.pseudo
+            });
+
+            ws.send(JSON.stringify(msg));
+        }
+        else if(data.type == "askPseudo")
+        {
+            let msg = {
+                type: 'askPseudo',
+                pseudo: getPersonneById(data.id).pseudo
+            }
+            ws.send(JSON.stringify(msg));
+        }
         
         data.pseudo = ws.pseudo;
         
@@ -117,8 +147,10 @@ wss.on('connection', function connection(ws){
                             msgConnexion.msg = "Bienvenue à " + ws.pseudo + " qui vient de se connecter!";
                             client.send(JSON.stringify(msgConnexion));
                         }
-                    else if(data.type == 'chatMsg')
+                    else if(data.type == 'chatMsg'){
+                        //data.pseudo = getPersonneById()
                         client.send(JSON.stringify(data));
+                    }
                     else if(data.type == 'disconnect')
                         {
                             
@@ -130,12 +162,9 @@ wss.on('connection', function connection(ws){
                                 heures: date.getHours() + 1
                             }
                             client.send(JSON.stringify(msg));
-                            var iF = -1;
                             for(var i = 0; i < salle[ws.room].pseudoLs.length; i++)
-                                {
                                     if(data.pseudo == salle[ws.room].pseudoLs[i])
                                         salle[ws.room].pseudoLs[i] = '';
-                                }
                         }
                     else if(data.type == 'ping')
                         {
@@ -196,6 +225,37 @@ wss.on('connection', function connection(ws){
         });*/
 	});
 });
+
+function generateId()
+{
+    return Math.floor(Math.random() * 1000000);
+}
+
+function getPersonneById(id){
+    for(let i = 0; i < personne.length; i++)
+    {
+        if(personne[i].id == id)
+            return personne[i];
+    }
+    return 0;
+}
+
+/*setInterval(function(){
+    for(let i = 0; i < personne.length; i++){
+        if(personne[i].ping !== undefined){
+            personne[i].ping++;
+            if(personne[i].ping > 4)
+            {
+                for(let y = 0; y < salle[ws.room].pseudoLs.length; i++)
+                    if(personne[i].pseudo == salle[ws.room].pseudoLs[i])
+                        salle[ws.room].pseudoLs[i] = '';
+                personne[i] = {};
+            }
+        }
+        else
+            personne[i].ping = 0;
+    }
+}, 2000);*/
 
 //app.listen(PORT);
 

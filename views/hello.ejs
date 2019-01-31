@@ -9,7 +9,8 @@
     </head>
 
     <body id="fond1">
-        <input type="text" placeholder="Pseudo" class="nomdelasalle" name="inputpseudo" id="inputpseudo">
+        <input type="text" placeholder="Pseudo" class="nomdelasalle" name="inputPseudo" id="inputPseudo">
+        <p style="color: red; display: none;" id="pseudoTakenHtml">pseudo deja pris!</p>
         <input type="text" placeholder="Nom de la salle" class="nomdelasalle", name="inputSalle", id="inputSalle">
         <input type="submit" class="go" value="Entrer" onclick="go()">
         <br/>
@@ -17,36 +18,55 @@
         <div id="container"></div>
         
         <script>
+            var id = sessionStorage.getItem('id');
             //visuel
             
             
             //chat
             
+            var pseudoTaken = false;
+            var pseudoBase;
+            var firstInit = 0;
+
             var debug = true;
             //var windo
 			if (Notification.permission !== "granted")
 				Notification.requestPermission();
                         
+            var wantGo = false;
             function go(){
+                if(pseudoTaken)
+                    return;
+                wantGo = true;
+                updateTaken();
                 //windo = window.open("https://www.google.com",'_blank', 'toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=10000, top=10000, width=10, height=10, visible=none', '');
                 //windo.opener.parent.focus();
-                if(window.location.href[window.location.href.length - 1] != '/')
-                   window.location.href += '/';
-                window.location.href += document.getElementsByName("inputSalle")[0].value;
+                
             }
+
+
             document.getElementById("inputSalle").onkeyup = function(event) {
+                wantGo = false;
                 if (event.keyCode === 13) {
                     go();
                 }
+                updateTaken();
             };
             
+            function openLinkRoom(name){
+                document.getElementsByName("inputSalle")[0].value = name;
+                go();
+            }
             
             var init = function(stats){
+                firstInit = 1;
                 var div = document.getElementById("container");
                 for(var name in stats){
                     var a = document.createElement("a");
-                    a.href = name;
+                    a.href = '';
                     a.textContent = name;
+                    a.onclick = function(){openLinkRoom(name)};
+                    a.setAttribute('onclick', 'openLinkRoom("' + name + '"); return false;');
                     var span = document.createElement("span");
                     span.textContent = " -" + stats[name] + " personnes";
                     div.appendChild(a);
@@ -67,15 +87,70 @@
                 if(obj.type == 'getStats'){
                     var stats = JSON.parse(obj.stats);
                     console.log(stats);
-                    init(stats);
+                    if(firstInit == 0)
+                        init(stats);
                 }
                 else if(obj.type == 'ok'){
                     console.log('ok!');
                     ws.send(JSON.stringify(firstMsg));
                 }
+                
+                if(obj.type == "connect")
+                {
+                    if(id == undefined)
+                        id = obj.id;
+                    if(obj.id != 0)
+                    {
+                        sessionStorage.setItem('id', id);
+                        if(window.location.href[window.location.href.length - 1] != '/')
+                                window.location.href += '/';
+                                window.location.href += document.getElementsByName("inputSalle")[0].value;
+                    }
+                }
+
+                if(obj.type == 'pseudo?')
+                    {
+                        var idRoom = document.getElementById("inputSalle").value;
+                        //console.log(obj);
+                        if(obj.result == 'okay'){
+                            ws.send(JSON.stringify(firstMsg));
+                            pseudoTaken = false;
+                            document.getElementById("pseudoTakenHtml").style.display = "none";
+                            if(wantGo)
+                            {
+                                var msg = {
+                                    type: 'connect',
+                                    pseudo: pseudoBase,
+                                    room: idRoom
+                                }
+                                ws.send(JSON.stringify(msg));
+                            }
+                        }
+                        else{
+                            pseudoTaken = true;
+                            document.getElementById("pseudoTakenHtml").style.display = "block";
+                            wantGo = false;
+                        }
+                    }
             }
             
-            
+            var inputPseudo = document.getElementById("inputPseudo");
+            inputPseudo.onkeyup = function(){
+                updateTaken();
+                wantGo = false;
+            };
+
+            function updateTaken(){
+                pseudoBase = inputPseudo.value;
+                var idRoom = document.getElementById("inputSalle").value;
+                var msgPseudo = {
+                    type: 'pseudo?',
+                    room: idRoom,
+                    pseudo: pseudoBase
+                }
+                if(pseudoBase.length > 1)
+                    ws.send(JSON.stringify(msgPseudo));
+            }
             
         </script>
     </body>
