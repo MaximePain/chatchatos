@@ -240,13 +240,13 @@ function getPersonneById(id){
     return 0;
 }
 
-setInterval(function(){
+/*setInterval(function(){
     for(let i = 0; i < personne.length; i++){
         if(personne[i].ping !== undefined){
             personne[i].ping++;
             if(personne[i].ping > 4)
             {
-                for(var i = 0; i < salle[ws.room].pseudoLs.length; i++)
+                for(let y = 0; y < salle[ws.room].pseudoLs.length; i++)
                     if(personne[i].pseudo == salle[ws.room].pseudoLs[i])
                         salle[ws.room].pseudoLs[i] = '';
                 personne[i] = {};
@@ -255,7 +255,7 @@ setInterval(function(){
         else
             personne[i].ping = 0;
     }
-}, 2000);
+}, 2000);*/
 
 //app.listen(PORT);
 
