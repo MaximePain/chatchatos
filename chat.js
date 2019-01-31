@@ -243,6 +243,7 @@ function getPersonneById(id){
 
 setInterval(function(){
     for(let i = 0; i < personne.length; i++){
+        if(personne[i] !== undefined)
         if(personne[i].ping !== undefined){
             personne[i].ping++;
             if(personne[i].ping > 4)
