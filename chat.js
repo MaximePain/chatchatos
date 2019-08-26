@@ -1,4 +1,4 @@
-var express = require('express');
+﻿var express = require('express');
 var http = require('http');
 const WebSocket = require('ws');
 const PORT = process.env.PORT || 5000
@@ -15,7 +15,7 @@ app.get('/', function(req, res){
 	//res.setHeader('Content-Type', 'text/plain');
 	res.render('hello.ejs');
 })
-.get('/:ibRoom', function(req, res){
+.get('/:idRoom', function(req, res){
     res.render('chat.ejs');
 });
 
@@ -69,9 +69,9 @@ wss.on('connection', function connection(ws){
             ws.send(JSON.stringify(msgConnexion));
             
             if(ws.pseudo == "SERVEUR")
-                ws.pseudo = "[un con qui essait de se faire passer pour le serveur en changeant son pseudo]";
+                ws.pseudo = "[un idiot qui essait de se faire passer pour le serveur en changeant son pseudo]";
             if(ws.pseudo == "ADMIN")
-                ws.pseudo = "[un con qui essait de se faire passer pour un admin en     changeant son pseudo]";
+                ws.pseudo = "[un idiot qui essait de se faire passer pour un admin en changeant son pseudo]";
             if(ws.pseudo == "admin:password:serveur")
                 ws.pseudo = "SERVEUR";
             if(ws.pseudo == "admin:password:admin")
@@ -80,7 +80,6 @@ wss.on('connection', function connection(ws){
             salle[ws.room].pseudoLs.push(ws.pseudo);
         }
         else if(data.type != 'getStats' && data.type != 'pseudo?' && data.type != 'ping' && data.type != 'connect' && data.type != 'askPseudo'){
-            //console.log('fnqukfnqzkjf: ' + data);
             if(salle[ws.room].msg.length > 1000)
                 salle[ws.room].msg.shift();
             salle[ws.room].msg.push(data);
